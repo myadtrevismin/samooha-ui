@@ -1,0 +1,13 @@
+$primary-color: #333;
+$secondary-color: #ffffff;
+
+.header-bg {
+  background-color: $secondary-color;
+  border: none;
+}
+
+.card{
+  box-shadow: 0 50px 100px 0 rgba(0, 0, 0, 0.1);
+  background-color: $secondary-color;
+}
+

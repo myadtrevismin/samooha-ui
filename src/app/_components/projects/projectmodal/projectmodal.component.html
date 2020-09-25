@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>New Project</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="plotForm" (submit)="plotSubmit()">
+
+      <div class="form-group">
+        <label for="location">Name</label>
+        <input type="text" class="form-control" formControlName="name" name="name" id="name" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" formControlName="location" name="location" id="location"
+          placeholder="Location">
+      </div>
+      <div class="form-group">
+        <label for="logo">{{logofile.filename}}</label>
+        <!-- <label for="plotFile">Upload Logo</label>
+        <input type="file" class="form-control-file" formControlName="logo" required (change)="upload($event.target.files, true)"
+          name="plotFile" id="plotFile" placeholder="Upload Logo" aria-describedby="Logo"> -->
+          <div class="input-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" formControlName="logo" (change)="upload($event.target.files, true)" id="logo" name="logo">
+              <label class="custom-file-label" for="logo">  <span class="spinner-border spinner-border-sm" *ngIf="logofile.progress > 0 && logofile.progress < 100" role="status" aria-hidden="true"></span> {{logofile.filename}}</label>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="plotFile">{{layoutfile.filename}}</label>
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" formControlName="filePath" (change)="upload($event.target.files, false)" id="filePath" name="filePath">
+            <label class="custom-file-label" for="filePath">
+              <span class="spinner-border spinner-border-sm" *ngIf="layoutfile.progress > 0 && layoutfile.progress < 100" role="status" aria-hidden="true"></span>{{layoutfile.filename}}</label>
+          </div>
+        </div>
+        <!-- <label for="plotFile">Upload Layout</label>
+        <input type="file" class="form-control-file" formControlName="filePath" required (change)="upload($event.target.files, false)"
+          name="plotFile" id="plotFile" placeholder="Upload Layout" aria-describedby="Layout">
+        <span class="spinner-border spinner-border-sm" *ngIf="filepercent > 0 && filepercent < 100" role="status" aria-hidden="true"></span> -->
+      </div>
+      <div class="btn-group text-center" role="group" aria-label="">
+        <button type="submit" [disabled]="plotForm.invalid" class="btn btn-primary">Ok</button>
+        <button type="reset" class="btn btn-danger" (click)="onClose()">Close</button>
+      </div>
+  </form>
+  <div id="output" class="hidden">
+
+  </div>
+</div>
