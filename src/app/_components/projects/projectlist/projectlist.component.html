@@ -33,7 +33,7 @@
         </ng-container>
         <ng-container matColumnDef="projectid">
           <th mat-header-cell *matHeaderCellDef> Project Id </th>
-          <td mat-cell *matCellDef="let row"> {{row.plotId}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.plotCode}} </td>
         </ng-container>
         <ng-container matColumnDef="logo">
           <th mat-header-cell *matHeaderCellDef> Logo </th>
@@ -41,7 +41,7 @@
         </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let row"> {{row.plotName}} </td>
+          <td mat-cell *matCellDef="let row"><a (click)="click(row)">{{row.plotName}} </a>  </td>
         </ng-container>
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef> Date </th>

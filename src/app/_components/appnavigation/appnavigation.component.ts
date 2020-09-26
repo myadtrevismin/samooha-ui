@@ -14,7 +14,7 @@ export class AppnavigationComponent implements OnInit {
 
   user: User;
   projects = [
-    {id: 0, name: 'Add Projects', active: true, icon: 'description', path: '/dashboard/project'},
+    {id: 0, name: 'Add Projects', active: true, icon: 'description', path: '/dashboard/projects/create'},
     {id: 1, name: 'View Projects', active: false, icon: 'person_add', path: '/dashboard/projects'},
   ];
 

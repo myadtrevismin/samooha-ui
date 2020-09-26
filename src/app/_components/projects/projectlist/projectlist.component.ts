@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {Project} from 'src/app/_model/project';
@@ -19,7 +20,8 @@ import { ProjectmodalComponent } from '../projectmodal/projectmodal.component';
 export class ProjectlistComponent implements OnInit, AfterViewInit {
 
   constructor(private projectservice: ProjectserviceService,
-              public dialog: MatDialog, private auth: AuthorizationService) { }
+              public dialog: MatDialog, private auth: AuthorizationService,
+              private router: Router) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -53,6 +55,10 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadProjects();
     });
+  }
+
+  click(row){
+    this.router.navigate(['/dashboard/projects', row.plotId]);
   }
 
 }
