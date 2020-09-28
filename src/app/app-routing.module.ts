@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/_helpers/auth.guard';
+import { AddagentComponent } from './_components/agents/addagent/addagent.component';
 import { AgentsComponent } from './_components/agents/agents.component';
+import { ProfileComponent } from './_components/agents/profile/profile.component';
+import { ForgotpasswordComponent } from './_components/forgotpassword/forgotpassword.component';
 import { HomeComponent } from './_components/home/home.component';
 import { LoginLayoutComponent } from './_components/login-layout/login-layout.component';
 import { LoginviewComponent } from './_components/loginview/loginview.component';
@@ -10,6 +13,7 @@ import { ProjectdetailComponent } from './_components/projects/projectdetail/pro
 import { ProjectlistComponent } from './_components/projects/projectlist/projectlist.component';
 import { ProjectmodalComponent } from './_components/projects/projectmodal/projectmodal.component';
 import { RegisterviewComponent } from './_components/registerview/registerview.component';
+import { ResetpasswordComponent } from './_components/resetpassword/resetpassword.component';
 import { VerifyemailComponent } from './_components/verifyemail/verifyemail.component';
 
 const routes: Routes = [
@@ -26,11 +30,15 @@ const routes: Routes = [
       { path: 'projects', component: ProjectlistComponent, canActivate: [AuthGuard] },
       { path: 'projects/create', component: ProjectmodalComponent, canActivate: [AuthGuard] },
       { path: 'agents', component: AgentsComponent, canActivate: [AuthGuard] },
+      { path: 'agents/create', component: AddagentComponent, canActivate: [AuthGuard] },
+      { path: 'agents/profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: 'projects/:id', component: ProjectdetailComponent, canActivate: [AuthGuard] },
     ]
   },
   { path: 'register', component: RegisterviewComponent },
   { path: 'accounts/verify-email', component: VerifyemailComponent },
+  { path: 'forgotpassword', component: ForgotpasswordComponent },
+  { path: 'account/reset-password', component: ResetpasswordComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '', pathMatch: 'full' }

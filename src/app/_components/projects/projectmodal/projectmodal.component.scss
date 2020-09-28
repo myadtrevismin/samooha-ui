@@ -1,3 +1,15 @@
 .hidden{
   display: none;
 }
+
+.breadcrumb{
+  background: transparent;
+  color: #6c757d;
+  padding: 0;
+}
+
+.breadcrumb-item>a{
+  color: #333;
+}
+
+

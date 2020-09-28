@@ -1,11 +1,16 @@
+<div class="p-2">
+      <mat-card-title>Projects</mat-card-title>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+        <li class="breadcrumb-item active">Projects</li>
+      </ol>
+</div>
+
 <div class="container m-2">
   <mat-card>
-    <mat-card-header>
-      <mat-card-title>Projects</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
-      <button color="primary" mat-raised-button class="mb-2" (click)="openDialog()">Add Project</button>
-      <mat-divider></mat-divider>
+      <!-- <button color="primary" mat-raised-button class="mb-2" (click)="openDialog()">Add Project</button>
+      <mat-divider></mat-divider> -->
       <!-- <div class="container">
         <div class="row">
           <div class="col-md-6" *ngFor="let project of projects$">
@@ -26,6 +31,18 @@
           </div>
         </div>
       </div> -->
+      <div class="form-group row">
+        <div class="col-md-4">
+          <div class="input-group mb-2">
+            <input class="form-control input-rounded" (keyup)="applyFilter($event)" placeholder="Search" #input>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <mat-icon>search</mat-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <table mat-table #table [dataSource]="dataSource">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef> S.No. </th>
@@ -41,7 +58,7 @@
         </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let row"><a (click)="click(row)">{{row.plotName}} </a>  </td>
+          <td mat-cell *matCellDef="let row"><a href (click)="click($event,row)">{{row.plotName}} </a>  </td>
         </ng-container>
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef> Date </th>

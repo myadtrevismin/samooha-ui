@@ -5,3 +5,38 @@ table {
 .logo{
   width: 50px;
 }
+
+.input-rounded{
+  background-color: rgb(0 0 0 / 47%);
+  border-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  color: #ffffff;
+  height: 40px;
+  padding: 10px 50px 10px 15px;
+}
+
+.input-rounded::placeholder{
+  color: #ffffff;
+}
+
+.input-group-text{
+  background-color: rgb(0 0 0 / 47%);
+  border-radius: 50px;
+  color: #ffffff;
+}
+
+.mat-header-row{
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+
+.breadcrumb{
+  background: transparent;
+  color: #6c757d;
+  padding: 0;
+}
+
+.breadcrumb-item>a{
+  color: #333;
+}

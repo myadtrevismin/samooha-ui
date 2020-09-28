@@ -1,0 +1,107 @@
+<h1>Add Agent</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="#">Dashboard / Add Agent</a></li>
+  </ol>
+</nav>
+
+<div class="container mb-2">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Add Projects</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="agentForm" (submit)="submitAgent()">
+            <div class="form-group row">
+              <label for="accountCode" class="col-sm-2 col-form-label">Agent ID</label>
+              <div class="col-sm-10">
+                <input readonly type="text" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.accountCode.errors }"
+                 formControlName="accountCode" name="accountCode" placeholder="Agent ID">
+                <div *ngIf="submitted && f.accountCode.errors" class="invalid-feedback">
+                  <div *ngIf="f.accountCode.errors.required">Account Id is required</div>
+                </div>
+              </div>
+            </div>
+              <div class="form-group row">
+                <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="firstName"  class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+                  name="firstName"  placeholder="First Name">
+                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" formControlName="lastName" name="lastName" placeholder="Last Name">
+                  <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="profileFile" class="col-sm-2 col-form-label">Agent Profile</label>
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" formControlName="profileFile" (change)="upload($event.target.files)" name="profileFile">
+                      <label class="custom-file-label" for="logo">  <span class="spinner-border spinner-border-sm" *ngIf="progress > 0 && progress < 100" role="status" aria-hidden="true"></span> {{profilefile}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" formControlName="phone" name="phone"
+                  placeholder="Phone Number">
+                  <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">Phone Number is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                  formControlName="email" name="email" id="email"
+                  placeholder="Email">
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="dateOfBirth" class="col-sm-2 col-form-label">DOB</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth .errors }"
+                  formControlName="dateOfBirth" name="dateOfBirth" placeholder="mm/dd/yyyy">
+                  <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+                    <div *ngIf="f.dateOfBirth.errors.required">Date Of Birth is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="address" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                  <textarea  class="form-control" formControlName="address" name="address"
+                  placeholder="Enter text here"> </textarea>
+                </div>
+              </div>
+
+              <div class="d-flex text-center justify-content-center" role="group" aria-label="">
+                <button type="submit" [disabled]="agentForm.invalid" class="btn btn-primary">Submit</button>
+              </div>
+          </form>
+          <div *ngIf="success" class="alert alert-success mt-3 mb-0">Agent Added Successfully</div>
+          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

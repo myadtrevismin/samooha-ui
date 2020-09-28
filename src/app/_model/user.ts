@@ -6,4 +6,10 @@ export class User {
   firstName: string;
   lastName: string;
   jwtToken?: string;
+  accountCode?: string;
+  dateOfBirth?: Date;
+  phoneNumber?: string;
+  address?: string;
+  profileFile?: string;
+  role?: string;
 }

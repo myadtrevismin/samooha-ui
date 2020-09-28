@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Project } from 'src/app/_model/project';
@@ -27,8 +27,19 @@ export class ProjectserviceService {
 
   // tslint:disable-next-line: typedef
   saveProject(project){
-    return this.http.post(`${environment.apiUrl}/api/projects`, project,{
+    return this.http.post(`${environment.apiUrl}/api/projects`, project, {
       withCredentials: true
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  getsubProjects(id, name){
+    let params = new HttpParams();
+    params = params.append('plotId', id);
+    params = params.append('name', name);
+    return this.http.get<Project[]>(`${environment.apiUrl}/api/projects/subproject`, {
+      withCredentials: true,
+      params
     });
   }
 

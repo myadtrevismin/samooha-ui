@@ -1,0 +1,98 @@
+<div class="container m-2">
+  <div class="p-2">
+    <h2>
+      Agent Profile
+    </h2>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+      <li class="breadcrumb-item active">Agent Profile</li>
+    </ol>
+  </div>
+
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-4 p-4">
+        <img class="img img-fluid" [src]="agent?.profileFile">
+      </div>
+      <div class="col-md-8 p-4 container-margin">
+        <div class="container" *ngIf="agent">
+          <div class="row m-2">
+            <div class="col-sm-3 text-right">
+              Id:
+            </div>
+            <div class="col-sm-9">
+              {{agent.accountCode}}
+            </div>
+          </div>
+          <div class="row m-2">
+            <div class="col-sm-3 text-right">
+              Name:
+            </div>
+            <div class="col-sm-9">
+              {{agent.firstName}} {{agent.lastName}}
+            </div>
+          </div>
+          <div class="row m-2">
+            <div class="col-sm-3 text-right">
+              DOB:
+            </div>
+            <div class="col-sm-9">
+              {{agent.dateOfBirth | date}}
+            </div>
+          </div>
+          <div class="row m-2">
+            <div class="col-sm-3 text-right">
+              Email:
+            </div>
+            <div class="col-sm-9">
+              {{agent.email}}
+            </div>
+          </div>
+          <div class="row m-2">
+            <div class="col-sm-3 text-right">
+              Phone:
+            </div>
+            <div class="col-sm-9">
+              {{agent.phoneNumber}}
+            </div>
+          </div>
+          <div class="row m-2">
+            <div class="col-sm-3 text-right">
+              Address:
+            </div>
+            <div class="col-sm-9">
+              {{agent.address}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <table mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef> S.No. </th>
+        <td mat-cell *matCellDef="let row"> {{row.location}} </td>
+      </ng-container>
+      <ng-container matColumnDef="projectid">
+        <th mat-header-cell *matHeaderCellDef> Project Id </th>
+        <td mat-cell *matCellDef="let row"> {{row.plotCode}} </td>
+      </ng-container>
+      <ng-container matColumnDef="logo">
+        <th mat-header-cell *matHeaderCellDef> Logo </th>
+        <td mat-cell *matCellDef="let row"> <img class="img logo img-fluid" [src]="row.logoPath"></td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let row">{{row.plotName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.uploadedDate | date}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

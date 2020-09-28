@@ -19,7 +19,7 @@ export class AppnavigationComponent implements OnInit {
   ];
 
   agents = [
-    {id: 0, name: 'Add Agents', active: true, icon: 'description', path: '/dashboard/agent'},
+    {id: 0, name: 'Add Agents', active: true, icon: 'description', path: '/dashboard/agents/create'},
     {id: 1, name: 'View Agents', active: false, icon: 'person_add', path: '/dashboard/agents'},
   ];
   projectcollapsed = false;
@@ -39,15 +39,18 @@ export class AppnavigationComponent implements OnInit {
     console.log(this.user);
   }
 
+  // tslint:disable-next-line: typedef
   setActive(nav){
     //this.navs.forEach(x => x.active = false);
     nav.active = true;
   }
 
+  // tslint:disable-next-line: typedef
   logout(){
     this.authService.logout();
   }
 
+  // tslint:disable-next-line: typedef
   clickSubheader(type){
     if (type === 'agent'){
       this.agentcollapsed = !this.agentcollapsed;

@@ -37,6 +37,7 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
     this.loadProjects();
   }
 
+  // tslint:disable-next-line: typedef
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -49,6 +50,7 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
     })).subscribe(x => (console.log(this.projects$)) );
   }
 
+  // tslint:disable-next-line: typedef
   openDialog(){
     const dialogRef = this.dialog.open(ProjectmodalComponent);
 
@@ -57,8 +59,21 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
     });
   }
 
-  click(row){
+  // tslint:disable-next-line: typedef
+  click(event: Event, row){
+    console.log(event);
+    event.preventDefault();
     this.router.navigate(['/dashboard/projects', row.plotId]);
+  }
+
+  // tslint:disable-next-line: typedef
+  applyFilter(event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
 }

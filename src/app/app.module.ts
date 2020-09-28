@@ -30,6 +30,11 @@ import { BlobModule } from 'angular-azure-blob-service';
 import { AgentsComponent } from './_components/agents/agents.component';
 import { LoginLayoutComponent } from './_components/login-layout/login-layout.component';
 import { MainLayoutComponent } from './_components/main-layout/main-layout.component';
+import { ProjectdialogComponent } from './_components/projects/projectdialog/projectdialog.component';
+import { AddagentComponent } from './_components/agents/addagent/addagent.component';
+import { ForgotpasswordComponent } from './_components/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './_components/resetpassword/resetpassword.component';
+import { ProfileComponent } from './_components/agents/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,12 @@ import { MainLayoutComponent } from './_components/main-layout/main-layout.compo
     ProjectmodalComponent,
     AgentsComponent,
     LoginLayoutComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    ProjectdialogComponent,
+    AddagentComponent,
+    ForgotpasswordComponent,
+    ResetpasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +78,7 @@ import { MainLayoutComponent } from './_components/main-layout/main-layout.compo
     { provide: HTTP_INTERCEPTORS, useClass: JwtinterceptInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  entryComponents: [ProjectmodalComponent],
+  entryComponents: [ProjectdialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

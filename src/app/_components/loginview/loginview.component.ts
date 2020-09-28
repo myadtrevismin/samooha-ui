@@ -16,6 +16,8 @@ public submitted = false;
 returnUrl;
 loading = false;
 error;
+isOtp = false;
+phone = '';
 
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,

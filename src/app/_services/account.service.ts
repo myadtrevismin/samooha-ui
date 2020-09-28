@@ -2,13 +2,14 @@ import {
   Injectable
 } from '@angular/core';
 import {
-  HttpClient
+  HttpClient, HttpParams
 } from '@angular/common/http';
 import {
   Router
 } from '@angular/router';
 import {
   BehaviorSubject,
+  identity,
   Observable
 } from 'rxjs';
 import {
@@ -38,7 +39,7 @@ export class AccountService {
 
   // tslint:disable-next-line: typedef
   getAll() {
-    return this.http.get<User[]>(`${environment.apiUrl}/api/accounts`,{
+    return this.http.get<User[]>(`${environment.apiUrl}/api/accounts`, {
       withCredentials: true
     }
     );
@@ -56,6 +57,36 @@ export class AccountService {
   }
 
   // tslint:disable-next-line: typedef
+  registerAgent(model) {
+    return this.http.post<any> (`${environment.apiUrl}/api/accounts/register`, model, {
+      withCredentials: true
+    })
+    .pipe(map(user => {
+      return user;
+    }));
+  }
+
+// tslint:disable-next-line: typedef
+forgotpassword(model){
+  return this.http.post<any> (`${environment.apiUrl}/api/accounts/forgot-password`, model, {
+    withCredentials: true
+  })
+  .pipe(map(user => {
+    return user;
+  }));
+}
+
+// tslint:disable-next-line: typedef
+resetPassword(model){
+  return this.http.post<any> (`${environment.apiUrl}/api/accounts/reset-password`, model, {
+    withCredentials: true
+  })
+  .pipe(map(user => {
+    return user;
+  }));
+}
+
+  // tslint:disable-next-line: typedef
   verifyEmail(token: any) {
     return this.http.post<any> (`${environment.apiUrl}/api/accounts/verify-email`, {
       token
@@ -68,6 +99,14 @@ export class AccountService {
   // tslint:disable-next-line: typedef
   getdashboardData(){
     return this.http.get<any>(`${environment.apiUrl}/api/dashboard`, {
+      withCredentials: true
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  getAgentById(id){
+    console.log(id);
+    return this.http.get<any>(`${environment.apiUrl}/api/accounts/agent/` + id, {
       withCredentials: true
     });
   }
