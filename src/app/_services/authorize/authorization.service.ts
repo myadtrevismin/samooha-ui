@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient
+  HttpClient, HttpParams
 } from '@angular/common/http';
 import {
   Router
@@ -51,12 +51,11 @@ export class AuthorizationService {
       .pipe(map(user => {
         this.userSubject.next(user);
         this.startRefreshTokenTimer();
-        localStorage.setItem('jwt', user.jwtToken);
-        localStorage.setItem('refreshToken', user.refreshToken);
         return user;
       }));
   }
 
+  // tslint:disable-next-line: typedef
   logout() {
     this.http.post <any> (`${environment.apiUrl}/api/accounts/revoke-token`, {}, {
       withCredentials: true
@@ -68,6 +67,7 @@ export class AuthorizationService {
     this.router.navigate(['/login']);
   }
 
+  // tslint:disable-next-line: typedef
   refreshToken() {
     const refreshToken = localStorage.getItem('refreshToken');
     return this.http.post < any > (`${environment.apiUrl}/api/accounts/refresh-token`, {}, {
@@ -80,6 +80,32 @@ export class AuthorizationService {
       }));
   }
 
+  // tslint:disable-next-line: typedef
+  sendOtp(phoneNumber){
+    console.log(phoneNumber);
+    const options = phoneNumber ?
+    { params: new HttpParams().set('phonenumber', phoneNumber)} : {};
+    return this.http.get<any>(`${environment.apiUrl}/api/Accounts/generateotp`, {
+      withCredentials: true,
+      params: options.params
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  verifyOtp(otp){
+    const options = otp ?
+    { params: new HttpParams().set('otp', otp)} : {};
+
+    return this.http.get<any>(`${environment.apiUrl}/api/Accounts/verifyotp/` + otp, {
+      withCredentials: true,
+    }).pipe(map(user => {
+      this.userSubject.next(user);
+      this.startRefreshTokenTimer();
+      return user;
+    }));
+  }
+
+  // tslint:disable-next-line: typedef
   private startRefreshTokenTimer() {
     const jwtToken = JSON.parse(atob(this.userValue.jwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
@@ -87,6 +113,7 @@ export class AuthorizationService {
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
   }
 
+  // tslint:disable-next-line: typedef
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
   }

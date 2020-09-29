@@ -14,11 +14,22 @@ $secondary-color: #ffffff;
   background-color: $secondary-color;
 }
 
-.card-body>form{
+.card-body form{
   margin: 0 2rem;
 }
 
 .nav-line:hover{
   text-decoration: underline;
   cursor: pointer;
+}
+
+
+.otp-input{
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  input{
+    max-width: 30px;
+    border-radius: 5px;
+  }
 }

@@ -9,6 +9,7 @@ import { BlobService, UploadConfig, UploadParams, BlobModule } from 'angular-azu
 import { ProjectserviceService } from 'src/app/_services/projects/projectservice.service';
 import { environment } from 'src/environments/environment';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AccountService } from 'src/app/_services/account.service';
 
 interface IUploadProgress {
   filename: string;
@@ -28,7 +29,7 @@ export class ProjectmodalComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private http: HttpClient,
               private blob: BlobService,
-              private router: Router) { }
+              private accountService: AccountService) { }
 
   plotForm: FormGroup;
   user: User;
@@ -36,6 +37,7 @@ export class ProjectmodalComponent implements OnInit {
   files = [];
   svgHtml;
   success;
+  projectCode;
   error;
   config;
   percent;
@@ -44,9 +46,10 @@ export class ProjectmodalComponent implements OnInit {
   layoutfile: IUploadProgress = { filename: 'Upload Layout', filePath: '', progress: 0};
 
   ngOnInit(): void {
+    this.randomDbGenerator();
     this.plotForm = this.formBuilder.group({
       plotId : [''],
-      plotCode: [this.randomCodeGenerator()],
+      plotCode: [this.projectCode.NewProject],
       name : ['', Validators.required],
       location : ['', Validators.required],
       logo: [''],
@@ -166,6 +169,11 @@ export class ProjectmodalComponent implements OnInit {
          result += characters.charAt(Math.floor(Math.random() * 5));
       }
       return 'SM-' + result;
+  }
+
+  // tslint:disable-next-line: typedef
+  randomDbGenerator(){
+    this.accountService.getAgentcodes().subscribe(x => this.projectCode = x, (error) => this.error = error);
   }
 
 }

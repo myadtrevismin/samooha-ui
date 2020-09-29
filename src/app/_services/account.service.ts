@@ -110,4 +110,11 @@ resetPassword(model){
       withCredentials: true
     });
   }
+
+  // tslint:disable-next-line: typedef
+  getAgentcodes(){
+    return this.http.get<any>(`${environment.apiUrl}/api/accounts/generatecodes`, {
+      withCredentials: true
+    });
+  }
 }

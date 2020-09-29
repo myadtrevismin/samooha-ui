@@ -1,68 +1,94 @@
 <div class="col-md-4 offset-md-4 mt-5">
   <div class="card">
-    <div class="card-header text-center header-bg" [ngClass]="{'mt-5': isOtp }">
+    <div class="card-header text-center header-bg" [ngClass]="{'mt-5': transaction === 'otp' }">
       <img class="img img-fluid mt-2" src="assets/samooha-logo.png" alt="Samooha">
       <div [ngSwitch]="isOtp">
-      <div *ngSwitchCase="true">
-        <h3>Login With OTP</h3>
+        <div *ngSwitchCase="true">
+          <h3>Login With OTP</h3>
+        </div>
+        <div *ngSwitchCase="false">
+          <h3>Login</h3>
+          <h5>Access to our dashboard</h5>
+        </div>
       </div>
-      <div *ngSwitchCase="false">
-        <h3>Login</h3>
-        <h5>Access to our dashboard</h5>
-      </div>
-    </div>
     </div>
     <div class="card-body">
-      <form [formGroup]="loginForm" *ngIf="!isOtp" (submit)="onSubmit()">
-        <div class="form-group">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control is-valid" formControlName="email" name="email" id="email"
-              aria-describedby="emailHelpId" placeholder="Email"
-              [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email Id is required</div>
+      <div [ngSwitch]="transaction">
+        <div *ngSwitchCase="'login'">
+          <form [formGroup]="loginForm" (submit)="onSubmit()">
+            <div class="form-group">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control is-valid" formControlName="email" name="email" id="email"
+                  aria-describedby="emailHelpId" placeholder="Email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email Id is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control is-valid" formControlName="password" name="password"
+                  id="password" placeholder="Password">
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button [disabled]="loading" class="btn btn-primary btn-lg btn-block" type="submit">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Login
+              </button>
+              <!-- <button [disabled]="loading" [routerLink]="['/register']" class="btn btn-danger">
+              Register
+            </button> -->
+            </div>
+            <div class="text-muted d-flex text-center flex-column m-2">
+              <a class="nav-line" (click)="transaction = 'otp'">Login With OTP</a>
+              <a class="nav-line" [routerLink]="['/forgotpassword']">Forgot Password</a>
+            </div>
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+          </form>
+        </div>
+        <div *ngSwitchCase="'otp'">
+          <form (submit)="phoneSubmit()">
+            <div class="form-group">
+              <input type="tel" class="form-control is-valid" [(ngModel)]="phone" name="phonenum" id="phone"
+                aria-describedby="emailHelpId" placeholder="Phone Number" #phonenum="ngModel"
+                [ngClass]="{ 'is-invalid': submitted && phonenum.invalid }">
+              <div *ngIf="submitted && phonenum.errors" class="invalid-feedback">
+                <div *ngIf="phonenum.errors.required">Phone Number is Required</div>
+              </div>
+            </div>
+            <div class="text-center m-2">
+              <button type="submit" color="primary" mat-raised-button>Next</button>
+            </div>
+            <!-- <div class="text-muted text-center mt-2 mb-2">
+              <span>Remember your password? <a class="nav-line" (click)="isOtp = false">Login</a> </span>
+            </div> -->
+          </form>
+        </div>
+        <div *ngSwitchCase="'verify'">
+          <div class="card">
+            <div class="card-header">
+              Please enter your passcode:
+            </div>
+            <div class="card-body otp-input">
+              <input type="text" (keyup)="codeEntered($event)" maxlength="1" [ngModel]="otp.val1" tabindex="10">
+              <input type="text" (keyup)="codeEntered($event)" maxlength="1" [ngModel]="otp.val2" tabindex="11">
+              <input type="text" (keyup)="codeEntered($event)" maxlength="1" [ngModel]="otp.val3" tabindex="12">
+              <input type="text" (keyup)="codeEntered($event)" maxlength="1" [ngModel]="otp.val4" tabindex="13">
+              <input type="text" (keyup)="codeEntered($event)" maxlength="1" [ngModel]="otp.val5" tabindex="14">
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control is-valid" formControlName="password" name="password"
-              id="password" placeholder="Password">
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Password is required</div>
-            </div>
+          <div class="text-center m-2">
+            <button (click)="verifyPhone()" color="primary" mat-raised-button>Verify</button>
           </div>
         </div>
-        <div class="d-flex justify-content-between">
-          <button [disabled]="loading" class="btn btn-primary btn-lg btn-block" type="submit">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
-          </button>
-          <!-- <button [disabled]="loading" [routerLink]="['/register']" class="btn btn-danger">
-            Register
-          </button> -->
-        </div>
-        <div class="text-muted d-flex text-center flex-column m-2">
-          <a class="nav-line" (click)="isOtp = true">Login With OTP</a>
-          <a class="nav-line" [routerLink]="['/forgotpassword']">Forgot Password</a>
-        </div>
-        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
-      </form>
-      <form *ngIf="isOtp">
-        <div class="form-group">
-          <input type="tel" class="form-control is-valid" [ngModel]="phone" name="phonenum" id="phone"
-            aria-describedby="emailHelpId" placeholder="Phone Number" #phonenum="ngModel"
-            [ngClass]="{ 'is-invalid': submitted && phonenum.invalid }">
-          <div *ngIf="submitted && phonenum.errors" class="invalid-feedback">
-            <div *ngIf="phonenum.errors.required">Phone Number is Required</div>
-          </div>
-        </div>
-        <div class="text-muted text-center mt-2 mb-2">
-          <span>Remember your password? <a class="nav-line" (click)="isOtp = false">Login</a>  </span>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
