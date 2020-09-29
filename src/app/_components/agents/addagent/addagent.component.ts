@@ -26,9 +26,8 @@ export class AddagentComponent implements OnInit {
   projectCode;
 
   ngOnInit(): void {
-    this.randomDbGenerator();
     this.agentForm = this.formBuilder.group({
-      accountCode: [this.projectCode.NewAgent],
+      accountCode: ['', Validators.required],
       firstName : ['', Validators.required],
       lastName : ['', Validators.required],
       profileFile : ['', Validators.required],
@@ -37,7 +36,7 @@ export class AddagentComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       address: ['']
     });
-
+    this.randomDbGenerator();
   }
 
   // tslint:disable-next-line: typedef
@@ -139,7 +138,8 @@ export class AddagentComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   randomDbGenerator(){
-    this.accountService.getAgentcodes().subscribe(x => this.projectCode = x, (error) => this.error = error);
+    this.accountService.getAgentcodes()
+    .subscribe(x =>  this.agentForm.get('accountCode').setValue(x.NewAgent), (error) => this.error = error);
   }
 
 }

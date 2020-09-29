@@ -49,7 +49,7 @@ export class ProjectmodalComponent implements OnInit {
     this.randomDbGenerator();
     this.plotForm = this.formBuilder.group({
       plotId : [''],
-      plotCode: [this.projectCode.NewProject],
+      plotCode: ['', Validators.required],
       name : ['', Validators.required],
       location : ['', Validators.required],
       logo: [''],
@@ -173,7 +173,7 @@ export class ProjectmodalComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   randomDbGenerator(){
-    this.accountService.getAgentcodes().subscribe(x => this.projectCode = x, (error) => this.error = error);
+    this.accountService.getAgentcodes().subscribe(x => this.plotForm.get('plotCode').setValue(x.NewProject), (error) => this.error = error);
   }
 
 }
