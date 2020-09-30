@@ -111,3 +111,13 @@ body { margin: 0; font-family: 'Mada', sans-serif !important; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.breadcrumb{
+  background: transparent;
+  color: #6c757d;
+  padding: 0;
+}
+
+.breadcrumb-item>a{
+  color: #333;
+}

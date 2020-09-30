@@ -82,7 +82,6 @@ export class AuthorizationService {
 
   // tslint:disable-next-line: typedef
   sendOtp(phoneNumber){
-    console.log(phoneNumber);
     const options = phoneNumber ?
     { params: new HttpParams().set('phonenumber', phoneNumber)} : {};
     return this.http.get<any>(`${environment.apiUrl}/api/Accounts/generateotp`, {
@@ -96,8 +95,9 @@ export class AuthorizationService {
     const options = otp ?
     { params: new HttpParams().set('otp', otp)} : {};
 
-    return this.http.get<any>(`${environment.apiUrl}/api/Accounts/verifyotp/` + otp, {
+    return this.http.get<any>(`${environment.apiUrl}/api/Accounts/verifyotp/`, {
       withCredentials: true,
+      params: options.params
     }).pipe(map(user => {
       this.userSubject.next(user);
       this.startRefreshTokenTimer();

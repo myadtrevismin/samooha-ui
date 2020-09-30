@@ -34,6 +34,7 @@ export class ProjectmodalComponent implements OnInit {
   plotForm: FormGroup;
   user: User;
   submitted;
+  loading = false;
   files = [];
   svgHtml;
   success;
@@ -68,8 +69,9 @@ export class ProjectmodalComponent implements OnInit {
   // tslint:disable-next-line: typedef
   plotSubmit() {
     this.submitted = true;
-    console.log(this.plotForm);
     if (this.plotForm.valid) {
+      this.loading = true;
+
       const plot = {
         plotName: this.f.name.value,
         plotCode: this.f.plotCode.value,
@@ -110,7 +112,8 @@ export class ProjectmodalComponent implements OnInit {
 
           this.projectService.saveProject(plot).subscribe(x => { if (x > 0) {
             this.success = true;
-          }}, (error) => this.error = error);
+            this.loading = false;
+          }}, (error) =>{ this.loading = false; this.error = error;});
         });
     }
   }

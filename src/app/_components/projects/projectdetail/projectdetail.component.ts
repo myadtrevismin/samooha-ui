@@ -1,17 +1,20 @@
+import * as d3 from 'd3';
+import * as d3zoom from 'd3-zoom';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectserviceService } from 'src/app/_services/projects/projectservice.service';
 import { ProjectdialogComponent } from '../projectdialog/projectdialog.component';
 
+
 @Component({
   selector: 'app-projectdetail',
   templateUrl: './projectdetail.component.html',
   styleUrls: ['./projectdetail.component.scss']
 })
-export class ProjectdetailComponent implements OnInit {
+export class ProjectdetailComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute,
               private projects: ProjectserviceService,
@@ -34,6 +37,17 @@ export class ProjectdetailComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
+  ngAfterViewInit(){
+  }
+
+  // tslint:disable-next-line: typedef
+  zoomed(transform){
+    const g =  d3.select('g');
+    g.attr('transform', transform);
+    console.log(transform);
+  }
+
+  // tslint:disable-next-line: typedef
 
   // tslint:disable-next-line: typedef
   loadfile() {
@@ -44,15 +58,18 @@ export class ProjectdetailComponent implements OnInit {
         this.svgHtml = logo;
         document.getElementById('container-img').innerHTML = this.svgHtml;
         const svg = document.getElementById('container-img').querySelector('svg');
+        const svgdoc = d3.select('svg').attr('width', '100%')
+        .attr('height', '100%')
+        .call(d3.zoom()
+        .on('zoom', ({transform}) => this.zoomed(transform)));
+        //console.log(svgdoc);
         svg.classList.add('w-100', 'h-auto');
         const paths = document.querySelectorAll('[id*=\'plot\']');
         const pathArray = [];
         paths.forEach(x => {
-          console.log(x);
           x.addEventListener('click', (event: Event) => {
             this.clickedOnPlot(event, x);
             x.setAttribute('title', x.id);
-            alert(x.id);
           });
           pathArray.push({
             id: x.id,

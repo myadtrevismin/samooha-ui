@@ -35,3 +35,10 @@ table {
 .breadcrumb-item>a{
   color: #333;
 }
+
+.mat-container.mat-elevation-z8 {
+  overflow-x: auto;
+}
+.mat-container .mat-table.mat-table {
+  min-width: 450px;
+}

@@ -23,6 +23,7 @@ returnUrl;
 loading = false;
 error;
 isOtp = false;
+phoneerror;
 phone = '';
 transaction = 'login';
 otpcode = '';
@@ -33,6 +34,7 @@ otp = {
   val4: '',
   val5: '',
 };
+otperror;
 
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
@@ -89,21 +91,24 @@ otp = {
 
   // tslint:disable-next-line: typedef
   phoneSubmit(){
-    console.log(this.phone);
     this.authenticationService.sendOtp(this.phone)
-                              .subscribe(x => {console.log(x); this.transaction = 'verify'; } , (error) => console.log(error));
+                              .subscribe(x =>
+                              {
+                                console.log(x);
+                                if (x === true){this.transaction = 'verify';
+                              }  } , (error) => this.phoneerror = error);
   }
 
   // tslint:disable-next-line: typedef
   verifyPhone(){
-    const otpcode = this.otp.val1 + this.otp.val2 + this.otp.val3 + this.otp.val4 + this.otp.val5;
-    this.authenticationService.verifyOtp(otpcode).pipe(first())
+     this.otpcode = this.otp.val1 + this.otp.val2 + this.otp.val3 + this.otp.val4 + this.otp.val5;
+     this.authenticationService.verifyOtp(this.otpcode).pipe(first())
     .subscribe({
         next: () => {
             this.router.navigate([this.returnUrl]);
         },
         error: error => {
-            this.error = error;
+            this.otperror = error;
             this.loading = false;
         }
     });

@@ -11,10 +11,10 @@
     </mat-nav-list> -->
     <mat-list>
       <mat-list-item class="nav-active" [routerLink]="['/dashboard']">
-        <mat-icon>home</mat-icon> Dashboard
+        <mat-icon>home</mat-icon> <span class="p-2">Dashboard</span>
       </mat-list-item>
       <div mat-subheader (click)="clickSubheader('project')">
-          <mat-icon>description</mat-icon> Projects
+          <mat-icon>description</mat-icon><span class="p-2">Projects</span>
           <span [ngSwitch]="projectcollapsed" class="ml-auto">
             <span  *ngSwitchCase="true">
               <mat-icon>expand_more</mat-icon>
@@ -31,7 +31,7 @@
       </div>
       <mat-divider></mat-divider>
       <div mat-subheader (click)="clickSubheader('agent')">
-          <mat-icon>person_add</mat-icon> Agents
+          <mat-icon>person_add</mat-icon> <span class="p-2">Agents</span>
           <span [ngSwitch]="agentcollapsed" class="ml-auto">
             <span  *ngSwitchCase="true">
               <mat-icon>expand_more</mat-icon>
@@ -54,7 +54,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span><a mat-icon-button (click)="drawer.toggle()">
+      <span><a mat-icon-button *ngIf="!isHandset$ | async" (click)="drawer.toggle()">
           <mat-icon class="white-icon">format_align_left</mat-icon>
         </a></span>
 

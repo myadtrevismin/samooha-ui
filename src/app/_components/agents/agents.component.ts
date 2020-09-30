@@ -19,7 +19,7 @@ export class AgentsComponent implements OnInit, AfterViewInit {
 
   projects$;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['agentId', 'name', 'email', 'phone'];
+  displayedColumns: string[] = ['sno', 'agentId', 'name', 'email', 'phone'];
 
 
   constructor(private accountService: AccountService,

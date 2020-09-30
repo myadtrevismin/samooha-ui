@@ -51,6 +51,18 @@
   background-color: #ffffff;
 }
 
+.mat-subheader{
+  color: #333;
+}
+
+
+
+.mat-subheader:hover{
+  background-color: #e9ecef;
+  cursor: pointer;
+  color: #333;
+}
+
 .subheader{
   font-size: 14px;
   padding: 0 1rem !important;
