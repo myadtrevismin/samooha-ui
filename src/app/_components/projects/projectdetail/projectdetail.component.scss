@@ -15,3 +15,11 @@
   height: auto !important;
   margin: auto;
 }
+
+#container-img{
+  display: flex;
+  margin: 2rem;
+  height: 100%;
+  border: 2px #ff8b8c solid;
+  cursor: zoom-in;
+}
