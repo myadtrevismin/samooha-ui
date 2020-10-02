@@ -20,7 +20,7 @@ export class ProjectserviceService {
 
   // tslint:disable-next-line: typedef
   getProjectById(id) {
-    return this.http.get<Project[]>(`${environment.apiUrl}/api/projects/` + id, {
+    return this.http.get<Project>(`${environment.apiUrl}/api/projects/` + id, {
       withCredentials: true
     });
   }
@@ -40,6 +40,13 @@ export class ProjectserviceService {
     return this.http.get<Project[]>(`${environment.apiUrl}/api/projects/subproject`, {
       withCredentials: true,
       params
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  savePlotDetails(plot){
+    return this.http.post(`${environment.apiUrl}/api/projects/customer/save`, plot, {
+      withCredentials: true
     });
   }
 

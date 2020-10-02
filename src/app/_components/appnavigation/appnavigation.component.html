@@ -46,6 +46,26 @@
           <div mat-line>{{nav.name}}</div>
         </mat-list-item>
       </div>
+      <div *ngIf="this.user.role === 'SuperAdmin'">
+        <mat-divider></mat-divider>
+        <div mat-subheader (click)="clickSubheader('admin')">
+          <mat-icon>person_add</mat-icon> <span class="p-2">Admins</span>
+          <span [ngSwitch]="admincollapsed" class="ml-auto">
+            <span  *ngSwitchCase="true">
+              <mat-icon>expand_more</mat-icon>
+            </span>
+            <span *ngSwitchCase="false">
+              <mat-icon>chevron_right</mat-icon>
+            </span>
+          </span>
+      </div>
+      <div *ngIf="admincollapsed">
+        <mat-list-item class="subheader" [routerLink]="admin.path" *ngFor="let admin of admins">
+          <div mat-line>{{admin.name}}</div>
+        </mat-list-item>
+      </div>
+      </div>
+
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>

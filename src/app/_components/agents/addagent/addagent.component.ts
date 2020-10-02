@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlobService, UploadParams } from 'angular-azure-blob-service';
 import { AccountService } from 'src/app/_services/account.service';
@@ -24,8 +24,13 @@ export class AddagentComponent implements OnInit {
   success;
   error;
   projectCode;
+  @Input()
+  role;
+  agentText;
 
   ngOnInit(): void {
+    const roleType = this.role || 'Agent';
+    this.agentText = roleType === 'Agent' ? 'Add Agent' : 'Add Admin';
     this.agentForm = this.formBuilder.group({
       accountCode: ['', Validators.required],
       firstName : ['', Validators.required],
@@ -91,7 +96,8 @@ export class AddagentComponent implements OnInit {
         dateOfBirth: this.f.dateOfBirth.value,
         address: this.f.address.value,
         password: passwordid,
-        confirmPassword: passwordid
+        confirmPassword: passwordid,
+        role: this.role === undefined || this.role === null ? 2 : this.role,
       };
       this.accountService.registerAgent(model).subscribe(x => this.success = true, (error) => this.error = error);
     }

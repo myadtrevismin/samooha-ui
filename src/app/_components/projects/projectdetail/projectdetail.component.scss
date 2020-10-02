@@ -1,4 +1,4 @@
-.spinner{
+.spinner {
   position: absolute;
   height: 100px;
   width: 100px;
@@ -10,16 +10,67 @@
 }
 
 
-.svg-full{
+.svg-full {
   width: 100% !important;
   height: auto !important;
   margin: auto;
 }
 
-#container-img{
+#container-img {
   display: flex;
-  margin: 2rem;
+  margin: 1rem;
   height: 100%;
   border: 2px #ff8b8c solid;
   cursor: zoom-in;
+}
+
+.w-grp {
+  max-width: 100px;
+}
+
+.status-0{
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-color: #fffac7,#ff8b8c;
+  margin:0 0.5rem;
+  span{
+    color: #333;
+    font-weight: 600;
+  }
+}
+
+.status-1 {
+  width: 25px;
+  height: 25px;
+  background-color: #fffac7;
+  margin:0 0.5rem;
+  span{
+    color: #333;
+    font-weight: 600;
+  }
+}
+
+.status-2 {
+  width: 25px;
+  height: 25px;
+  background-color: #ff8b8c;
+  margin:0 0.5rem;
+  span{
+    color: #333;
+    font-weight: 600;
+  }
+}
+
+$breakpoint-tablet: 640px;
+@media (max-width: $breakpoint-tablet) {
+  .status-1, .status-1, .status-2{
+    margin: 0;
+  }
+
+  #container-img{
+    margin: 0;
+  }
 }

@@ -1,8 +1,8 @@
-<h1>Add Agent</h1>
+<h1>{{agentText}}</h1>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Agent</li>
+    <li class="breadcrumb-item active" aria-current="page">{{agentText}}</li>
   </ol>
 </nav>
 
@@ -98,7 +98,7 @@
                 <button type="submit" [disabled]="agentForm.invalid" class="btn btn-primary">Submit</button>
               </div>
           </form>
-          <div *ngIf="success" class="alert alert-success mt-3 mb-0">Agent Added Successfully</div>
+          <div *ngIf="success" class="alert alert-success mt-3 mb-0">User Added Successfully</div>
           <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
         </mat-card-content>
       </mat-card>

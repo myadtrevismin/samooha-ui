@@ -22,8 +22,15 @@ export class AppnavigationComponent implements OnInit {
     {id: 0, name: 'Add Agents', active: true, icon: 'description', path: '/dashboard/agents/create'},
     {id: 1, name: 'View Agents', active: false, icon: 'person_add', path: '/dashboard/agents'},
   ];
+
+  admins = [
+    {id: 0, name: 'Add Admin', active: false, icon: 'person_add', path: '/dashboard/admins/create'},
+    {id: 1, name: 'View Admins', active: false, icon: 'description', path: '/dashboard/admins'}
+  ];
+
   projectcollapsed = false;
   agentcollapsed = false;
+  admincollapsed = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -36,7 +43,6 @@ export class AppnavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.userValue;
-    console.log(this.user);
   }
 
   // tslint:disable-next-line: typedef
@@ -56,12 +62,21 @@ export class AppnavigationComponent implements OnInit {
       this.agentcollapsed = !this.agentcollapsed;
       if (this.agentcollapsed === true){
         this.projectcollapsed = false;
+        this.admincollapsed = false;
+      }
+    }
+    else if (type === 'admin'){
+      this.admincollapsed = !this.admincollapsed;
+      if (this.admincollapsed === true){
+        this.agentcollapsed = false;
+        this.projectcollapsed = false;
       }
     }
     else{
       this.projectcollapsed = !this.projectcollapsed;
       if (this.projectcollapsed === true){
         this.agentcollapsed = false;
+        this.admincollapsed = false;
       }
     }
   }

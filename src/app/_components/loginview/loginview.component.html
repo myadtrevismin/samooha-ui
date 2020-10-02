@@ -21,7 +21,7 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control is-valid" formControlName="email" name="email" id="email"
                   aria-describedby="emailHelpId" placeholder="Email"
-                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                 class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                   <div *ngIf="f.email.errors.required">Email Id is required</div>
                 </div>

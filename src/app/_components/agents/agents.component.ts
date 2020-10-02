@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,6 +20,9 @@ export class AgentsComponent implements OnInit, AfterViewInit {
   projects$;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['sno', 'agentId', 'name', 'email', 'phone'];
+  @Input()
+  role;
+  agentText;
 
 
   constructor(private accountService: AccountService,
@@ -33,8 +36,10 @@ export class AgentsComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   loadAgents(){
+    const roleType = this.role || 'Agent';
+    this.agentText = roleType === 'Agent' ? 'Agents' : 'Admins';
     this.accountService.getAll().subscribe(x => {
-      this.dataSource.data = x.filter(a => a.role === 'Agent' );
+      this.dataSource.data = x.filter(a => a.role === roleType);
       console.log(this.dataSource.data);
     });
   }

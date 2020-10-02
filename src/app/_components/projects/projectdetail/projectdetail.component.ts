@@ -25,12 +25,16 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   project;
   showProgress = true;
   svgHtml;
+  uploadSuccess;
+  error;
+  plotsCount;
 
   ngOnInit(): void {
     const projectId = this.route.snapshot.paramMap.get('id');
     this.projects.getProjectById(projectId)
       .subscribe(x => {
         this.project = x;
+        this.plotsCount = x.plotsCount;
         this.loadfile();
         this.showProgress = false;
       });
@@ -44,7 +48,6 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   zoomed(transform){
     const g =  d3.select('g');
     g.attr('transform', transform);
-    console.log(transform);
   }
 
   // tslint:disable-next-line: typedef
@@ -87,7 +90,10 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (result !== null){
+        this.projects.savePlotDetails(result)
+        .subscribe(y => {if (y > 0){ this.uploadSuccess = true; }}, (error) => this.error = error );
+      }
     });
   }
 

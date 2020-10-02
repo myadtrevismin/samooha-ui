@@ -10,4 +10,5 @@ export interface Project{
   user?: User;
   sections: null;
   active?: boolean;
+  plotsCount?: any;
 }

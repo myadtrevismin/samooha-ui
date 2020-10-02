@@ -35,6 +35,8 @@ import { AddagentComponent } from './_components/agents/addagent/addagent.compon
 import { ForgotpasswordComponent } from './_components/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './_components/resetpassword/resetpassword.component';
 import { ProfileComponent } from './_components/agents/profile/profile.component';
+import { AddadminComponent } from './_components/agents/addadmin/addadmin.component';
+import { AdminsComponent } from './_components/agents/admins/admins.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ProfileComponent } from './_components/agents/profile/profile.component
     AddagentComponent,
     ForgotpasswordComponent,
     ResetpasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddadminComponent,
+    AdminsComponent
   ],
   imports: [
     BrowserModule,
