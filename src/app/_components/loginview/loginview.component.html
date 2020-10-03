@@ -87,7 +87,7 @@
           <div class="text-center m-2">
             <button [disabled]="val1.invalid || val2.invalid || val3.invalid || val4.invalid || val5.invalid" (click)="verifyPhone()" color="primary" mat-raised-button>Verify</button>
           </div>
-          <div *ngIf="otperror" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+          <div *ngIf="otperror" class="alert alert-danger mt-3 mb-0">{{otperror}}</div>
         </div>
       </div>
     </div>

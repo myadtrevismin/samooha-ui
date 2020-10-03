@@ -3,7 +3,7 @@ table {
 }
 
 .logo{
-  width: 50px;
+  width: 90px;
 }
 
 .input-rounded{
@@ -25,12 +25,6 @@ table {
   color: #ffffff;
 }
 
-.mat-header-row{
-  background-color: #f8f9fa;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-}
-
-
 .breadcrumb{
   background: transparent;
   color: #6c757d;
@@ -41,6 +35,11 @@ table {
   color: #333;
 }
 
+
+.mat-header-row{
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
 
 .mat-container.mat-elevation-z8 {
   overflow-x: auto;
