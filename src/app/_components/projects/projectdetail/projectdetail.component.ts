@@ -30,14 +30,19 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   plotsCount;
 
   ngOnInit(): void {
+    this.loadProject();
+  }
+
+  // tslint:disable-next-line: typedef
+  loadProject(){
     const projectId = this.route.snapshot.paramMap.get('id');
     this.projects.getProjectById(projectId)
-      .subscribe(x => {
-        this.project = x;
-        this.plotsCount = x.plotsCount;
-        this.loadfile();
-        this.showProgress = false;
-      });
+    .subscribe(x => {
+      this.project = x;
+      this.plotsCount = x.plotsCount;
+      this.loadfile();
+      this.showProgress = false;
+    });
   }
 
   // tslint:disable-next-line: typedef
@@ -67,9 +72,22 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         .on('zoom', ({transform}) => this.zoomed(transform)));
         //console.log(svgdoc);
         svg.classList.add('w-100', 'h-auto');
-        const paths = document.querySelectorAll('[id*=\'plot\']');
+        const paths = document.querySelectorAll('[class*=\'plot\']');
         const pathArray = [];
         paths.forEach(x => {
+          console.log(this.project.sections);
+          const plotsection = this.project.sections.filter(a => a.name === x.classList[0].split('-')[1]);
+          console.log(plotsection);
+          if (plotsection?.length > 0){
+            // console.log(document);
+            // console.log(plotsection[0].location);
+            const colrelement = document.getElementById(plotsection[0].location);
+            if (colrelement !== null){
+              colrelement?.style.fill.replace('#fffac7', '#f8c6c8');
+            }
+            // console.log(colrelement);
+            //colrelement.classList.add('sold');
+          }
           x.addEventListener('click', (event: Event) => {
             this.clickedOnPlot(event, x);
             x.setAttribute('title', x.id);
@@ -92,7 +110,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== null){
         this.projects.savePlotDetails(result)
-        .subscribe(y => {if (y > 0){ this.uploadSuccess = true; }}, (error) => this.error = error );
+        .subscribe(y => {if (y > 0){ this.uploadSuccess = true; this.loadProject(); }}, (error) => this.error = error );
       }
     });
   }

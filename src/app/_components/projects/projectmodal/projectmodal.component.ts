@@ -88,21 +88,26 @@ export class ProjectmodalComponent implements OnInit {
           this.svgHtml = logo;
           console.log(document.getElementById('output'));
           document.getElementById('output').innerHTML = this.svgHtml;
-          const paths = document.querySelectorAll("[id*='plot']");
+          const paths = document.querySelectorAll("[class*='plot']");
           const pathArray = [];
+          const classList = [];
           paths.forEach(x => {
-            pathArray.push({id: x.id, status: x.classList[0] });
+            if (classList.indexOf(x.classList[0]) < 0){
+              pathArray.push({id: x.id, property: x.classList[0] });
+              classList.push(x.classList[0]);
+            }
           });
 
           plot.sections = [];
           pathArray.forEach(a => {
-            const splitText = a.id.split('-');
+            const splitText = a.property.split('-');
             const section = {
+              location: a.property,
               name: splitText[1],
-              location: splitText[2],
-              category1: splitText[3],
-              category2: splitText[4],
-              currentStatus: a.status === 'sold' ? 2 : 0,
+              category1: splitText[2],
+              category2: splitText[3],
+              category3: splitText[4],
+              currentStatus: 0,
               startDate: new Date(),
               updateDate: new Date(),
               updatedBy: this.user.id
@@ -113,7 +118,7 @@ export class ProjectmodalComponent implements OnInit {
           this.projectService.saveProject(plot).subscribe(x => { if (x > 0) {
             this.success = true;
             this.loading = false;
-          }}, (error) =>{ this.loading = false; this.error = error;});
+          }}, (error) => { this.loading = false; this.error = error;});
         });
     }
   }
