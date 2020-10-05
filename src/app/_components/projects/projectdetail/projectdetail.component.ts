@@ -75,18 +75,13 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         const paths = document.querySelectorAll('[class*=\'plot\']');
         const pathArray = [];
         paths.forEach(x => {
-          console.log(this.project.sections);
           const plotsection = this.project.sections.filter(a => a.name === x.classList[0].split('-')[1]);
           console.log(plotsection);
           if (plotsection?.length > 0){
-            // console.log(document);
-            // console.log(plotsection[0].location);
             const colrelement = document.getElementById(plotsection[0].location);
-            if (colrelement !== null){
-              colrelement?.style.fill.replace('#fffac7', '#f8c6c8');
+            if (colrelement !== null && plotsection[0].currentStatus === 2){
+              colrelement.style.fill = '#f8c6c8';
             }
-            // console.log(colrelement);
-            //colrelement.classList.add('sold');
           }
           x.addEventListener('click', (event: Event) => {
             this.clickedOnPlot(event, x);

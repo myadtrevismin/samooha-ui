@@ -57,12 +57,19 @@ export class ProjectdialogComponent implements OnInit {
   // tslint:disable-next-line: typedef
   onSubmit(){
     this.submitted = true;
-    console.log(this.subplotForm);
     if (this.subplotForm.valid){
-      this.subplotForm.get('currentStatus').patchValue(2, {
-        onlySelf: true
-      });
-      this.dialogRef.close(this.subplotForm.value);
+      const plot = {
+        address: this.f.address.value,
+        agent: this.f.agent.value,
+        currentStatus: 2,
+        customerName: this.f.customerName.value,
+        phone: this.f.phone.value,
+        plotSectionId: this.f.plotSectionId.value,
+        price: this.f.price.value,
+        updateDate: this.f.updateDate.value
+      };
+      console.log(plot);
+      this.dialogRef.close(plot);
     }
   }
 
