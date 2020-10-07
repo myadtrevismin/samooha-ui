@@ -14,18 +14,19 @@ export class AppnavigationComponent implements OnInit {
 
   user: User;
   projects = [
-    {id: 0, name: 'Add Projects', active: true, icon: 'description', path: '/dashboard/projects/create'},
-    {id: 1, name: 'View Projects', active: false, icon: 'person_add', path: '/dashboard/projects'},
+    {id: 0, name: 'Add Projects', active: true, icon: 'description',
+     path: '/dashboard/projects/create', hidden: false},
+    {id: 1, name: 'View Projects', active: false, icon: 'person_add', path: '/dashboard/projects', hidden: false},
   ];
 
   agents = [
-    {id: 0, name: 'Add Agents', active: true, icon: 'description', path: '/dashboard/agents/create'},
-    {id: 1, name: 'View Agents', active: false, icon: 'person_add', path: '/dashboard/agents'},
+    {id: 0, name: 'Add Agents', active: true, icon: 'description', path: '/dashboard/agents/create', hidden: false},
+    {id: 1, name: 'View Agents', active: false, icon: 'person_add', path: '/dashboard/agents', hidden: false},
   ];
 
   admins = [
-    {id: 0, name: 'Add Admin', active: false, icon: 'person_add', path: '/dashboard/admins/create'},
-    {id: 1, name: 'View Admins', active: false, icon: 'description', path: '/dashboard/admins'}
+    {id: 0, name: 'Add Admin', active: false, icon: 'person_add', path: '/dashboard/admins/create', hidden: false},
+    {id: 1, name: 'View Admins', active: false, icon: 'description', path: '/dashboard/admins', hidden: false}
   ];
 
   projectcollapsed = false;
@@ -43,6 +44,10 @@ export class AppnavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.userValue;
+    if (this.user.role === 'Agent'){
+      this.projects[0].hidden = true;
+      this.agents[0].hidden = true;
+    }
   }
 
   // tslint:disable-next-line: typedef
