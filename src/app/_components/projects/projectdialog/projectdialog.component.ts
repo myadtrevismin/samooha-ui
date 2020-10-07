@@ -24,8 +24,8 @@ export class ProjectdialogComponent implements OnInit {
   buttonTxt;
 
   ngOnInit(): void {
-    this.subProject = this.data.plot.sections.filter(x => x.name === this.data.path.id.split('-')[1])[0];
-    console.log(this.subProject);
+    const nameclass = this.data.evt.target.classList[0].split('-')[1];
+    this.subProject = this.data.plot.sections.filter(x => x.name === nameclass)[0];
     this.buttonTxt = this.subProject.agentId === null ? 'Save' : 'Update';
     this.status = this.subProject.currentStatus === 2 ? 'Sold' : this.subProject.currentStatus === 1 ? 'On Hold' : 'Open';
     this.accountService.getAll().subscribe(x => this.agents = x.filter(a => a.role === 'Agent'));
@@ -60,7 +60,7 @@ export class ProjectdialogComponent implements OnInit {
     if (this.subplotForm.valid){
       const plot = {
         address: this.f.address.value,
-        agent: this.f.agent.value,
+        agent: this.f.agent.value.split(':')[1].trim(),
         currentStatus: 2,
         customerName: this.f.customerName.value,
         phone: this.f.phone.value,
@@ -68,7 +68,6 @@ export class ProjectdialogComponent implements OnInit {
         price: this.f.price.value,
         updateDate: this.f.updateDate.value
       };
-      console.log(plot);
       this.dialogRef.close(plot);
     }
   }

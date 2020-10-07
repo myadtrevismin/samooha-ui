@@ -76,7 +76,6 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         const pathArray = [];
         paths.forEach(x => {
           const plotsection = this.project.sections.filter(a => a.name === x.classList[0].split('-')[1]);
-          console.log(plotsection);
           if (plotsection?.length > 0){
             const colrelement = document.getElementById(plotsection[0].location);
             if (colrelement !== null && plotsection[0].currentStatus === 2){
@@ -99,13 +98,15 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   clickedOnPlot(evt, x){
     const dialogRef = this.dialog.open(ProjectdialogComponent, {
       width: '80%',
-      data: {path: x, plot: this.project}
+      data: {path: x, plot: this.project, evt}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== null){
+      if (result !== null && result !== undefined){
+        this.showProgress = true;
         this.projects.savePlotDetails(result)
-        .subscribe(y => {if (y > 0){ this.uploadSuccess = true; this.loadProject(); }}, (error) => this.error = error );
+        .subscribe(y => {if (y > 0){ this.uploadSuccess = true; this.loadProject();
+                                     this.showProgress = false; }}, (error) => {this.showProgress = false; this.error = error; }  );
       }
     });
   }

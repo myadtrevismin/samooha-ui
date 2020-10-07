@@ -117,4 +117,13 @@ resetPassword(model){
       withCredentials: true
     });
   }
+
+  // tslint:disable-next-line: typedef
+  deleteAgentById(id){
+
+    return this.http.post<any>(`${environment.apiUrl}/api/accounts/agent/delete`, {id},
+     {
+      withCredentials: true,
+    });
+  }
 }

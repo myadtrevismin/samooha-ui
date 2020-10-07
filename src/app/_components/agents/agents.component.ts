@@ -19,10 +19,14 @@ export class AgentsComponent implements OnInit, AfterViewInit {
 
   projects$;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['sno', 'agentId', 'name', 'email', 'phone'];
+  displayedColumns: string[] = ['sno', 'agentId', 'name', 'email', 'phone', 'star'];
   @Input()
   role;
   agentText;
+  deleteMessage;
+  error;
+  roleType;
+  loginuser;
 
 
   constructor(private accountService: AccountService,
@@ -36,11 +40,14 @@ export class AgentsComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   loadAgents(){
-    const roleType = this.role || 'Agent';
-    this.agentText = roleType === 'Agent' ? 'Agents' : 'Admins';
-    this.accountService.getAll().subscribe(x => {
-      this.dataSource.data = x.filter(a => a.role === roleType);
-      console.log(this.dataSource.data);
+   this.loginuser = this.auth.userValue.role;
+   console.log(this.loginuser);
+   this.roleType = this.role || 'Agent';
+   this.agentText = this.roleType === 'Agent' ? 'Agents' : 'Admins';
+   this.accountService.getAll().subscribe(x => {
+      this.dataSource.data = x.filter(a => a.role === this.roleType);
+      this.deleteMessage = null;
+      this.error = null;
     });
   }
 
@@ -54,6 +61,13 @@ export class AgentsComponent implements OnInit, AfterViewInit {
   click(eve: Event, row){
     eve.preventDefault();
     this.router.navigate(['/dashboard/agents/profile', row.id]);
+  }
+
+  // tslint:disable-next-line: typedef
+  clickDelete($event: Event, row){
+    $event.preventDefault();
+    this.accountService.deleteAgentById(row.id)
+    .subscribe(x => {this.deleteMessage =  x.message; this.loadAgents(); }, (error) => this.error = error);
   }
 
   // tslint:disable-next-line: typedef
