@@ -47,6 +47,58 @@
             {
               "xml": "<feature name=\"CDVIonicKeyboard\"><param name=\"ios-package\" onload=\"true\" value=\"CDVIonicKeyboard\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"IonicCordovaCommon\"><param name=\"ios-package\" onload=\"true\" value=\"IonicCordovaCommon\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"DisableDeploy\" value=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"AutoHideSplashScreen\" value=\"false\" />",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "IonAppId": [
+            {
+              "xml": "<string>f8753452</string>",
+              "count": 1
+            }
+          ],
+          "IonChannelName": [
+            {
+              "xml": "<string>Master</string>",
+              "count": 1
+            }
+          ],
+          "IonApi": [
+            {
+              "xml": "<string>https://api.ionicjs.com</string>",
+              "count": 1
+            }
+          ],
+          "IonUpdateMethod": [
+            {
+              "xml": "<string>background</string>",
+              "count": 1
+            }
+          ],
+          "IonMaxVersions": [
+            {
+              "xml": "<string>2</string>",
+              "count": 1
+            }
+          ],
+          "IonMinBackgroundDuration": [
+            {
+              "xml": "<string>30</string>",
+              "count": 1
             }
           ]
         }
@@ -70,6 +122,15 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-ionic": {
+      "APP_ID": "f8753452",
+      "CHANNEL_NAME": "Master",
+      "UPDATE_API": "https://api.ionicjs.com",
+      "UPDATE_METHOD": "background",
+      "MAX_STORE": "2",
+      "MIN_BACKGROUND_DURATION": "30",
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -122,6 +183,20 @@
       "clobbers": [
         "window.Keyboard"
       ]
+    },
+    {
+      "id": "cordova-plugin-ionic.common",
+      "file": "plugins/cordova-plugin-ionic/dist/common.js",
+      "pluginId": "cordova-plugin-ionic",
+      "clobbers": [
+        "IonicCordova"
+      ]
+    },
+    {
+      "id": "cordova-plugin-ionic.guards",
+      "file": "plugins/cordova-plugin-ionic/dist/guards.js",
+      "pluginId": "cordova-plugin-ionic",
+      "runs": true
     }
   ],
   "plugin_metadata": {
@@ -130,6 +205,7 @@
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-ionic-webview": "4.2.1",
-    "cordova-plugin-ionic-keyboard": "2.2.0"
+    "cordova-plugin-ionic-keyboard": "2.2.0",
+    "cordova-plugin-ionic": "5.4.7"
   }
 }

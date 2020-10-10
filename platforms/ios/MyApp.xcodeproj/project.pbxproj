@@ -24,6 +24,7 @@
 		C81236AB4F3C438D88F09F06 /* IONAssetHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5DC4388FD5499DB9A62CF4 /* IONAssetHandler.m */; };
 		02AA895FC5CC45B6881F4967 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 615160D2CD9F467387461AEE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6D69F78B65A94A7285CAEDB6 /* CDVIonicKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BB479CFC344FC781335DF8 /* CDVIonicKeyboard.m */; };
+		CD5D1592631B4BDAB7E2929B /* IonicCordovaCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0D2029091848BBA68E4338 /* IonicCordovaCommon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		615160D2CD9F467387461AEE /* WebKit.framework */ = {isa = PBXFileReference; name = "WebKit.framework"; path = "System/Library/Frameworks/WebKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		C9BB479CFC344FC781335DF8 /* CDVIonicKeyboard.m */ = {isa = PBXFileReference; name = "CDVIonicKeyboard.m"; path = "cordova-plugin-ionic-keyboard/CDVIonicKeyboard.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		EB4DE1DDCD2C420EBF6E01CA /* CDVIonicKeyboard.h */ = {isa = PBXFileReference; name = "CDVIonicKeyboard.h"; path = "cordova-plugin-ionic-keyboard/CDVIonicKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		6C0D2029091848BBA68E4338 /* IonicCordovaCommon.m */ = {isa = PBXFileReference; name = "IonicCordovaCommon.m"; path = "cordova-plugin-ionic/IonicCordovaCommon.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		221B029DEF324589BE1D9E91 /* IonicCordovaCommon.h */ = {isa = PBXFileReference; name = "IonicCordovaCommon.h"; path = "cordova-plugin-ionic/IonicCordovaCommon.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +217,8 @@
 				02E093631DE84E9BBA95041E /* IONAssetHandler.h */,
 				C9BB479CFC344FC781335DF8 /* CDVIonicKeyboard.m */,
 				EB4DE1DDCD2C420EBF6E01CA /* CDVIonicKeyboard.h */,
+				6C0D2029091848BBA68E4338 /* IonicCordovaCommon.m */,
+				221B029DEF324589BE1D9E91 /* IonicCordovaCommon.h */,
 			);
 			name = Plugins;
 			path = "MyApp/Plugins";
@@ -347,6 +352,7 @@
 				047F96E7A82646228116EE04 /* CDVWKProcessPoolFactory.m in Sources */,
 				C81236AB4F3C438D88F09F06 /* IONAssetHandler.m in Sources */,
 				6D69F78B65A94A7285CAEDB6 /* CDVIonicKeyboard.m in Sources */,
+				CD5D1592631B4BDAB7E2929B /* IonicCordovaCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
