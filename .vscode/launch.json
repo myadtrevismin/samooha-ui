@@ -4,6 +4,24 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+      {
+        "name": "Attach to iOS on device",
+        "type": "cordova",
+        "request": "attach",
+        "platform": "ios",
+        "target": "device",
+        "cwd": "${workspaceFolder}",
+        "sourceMaps": true
+      },
+    {
+      "name": "Run iOS on device",
+      "type": "cordova",
+      "request": "launch",
+      "platform": "ios",
+      "target": "",
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}"
+    },
         {
             "type": "chrome",
             "request": "launch",
