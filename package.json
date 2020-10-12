@@ -32,7 +32,6 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "angular-azure-blob-service": "^1.1.0",
     "bootstrap": "^4.5.0",
-    "cordova-ios": "5.1.1",
     "d3": "^6.2.0",
     "idevicekit": "^0.3.3",
     "node-ios-webkit-debug-proxy": "^1.0.2",
@@ -88,8 +87,6 @@
         "UPDATE_API": "https://api.ionicjs.com"
       }
     },
-    "platforms": [
-      "ios"
-    ]
+    "platforms": []
   }
 }
