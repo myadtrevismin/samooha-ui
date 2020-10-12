@@ -34,7 +34,7 @@ const routes: Routes = [
       { path: 'agents', component: AgentsComponent, canActivate: [AuthGuard] },
       { path: 'agents/create', component: AddagentComponent, canActivate: [AuthGuard] },
       { path: 'agents/profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
-      { path: 'projects/:id', component: ProjectdetailComponent },
+      { path: 'projects/:id', component: ProjectdetailComponent, canActivate: [AuthGuard] },
       { path: 'admins', component: AdminsComponent, canActivate: [AuthGuard] },
       { path: 'admins/create', component: AddadminComponent, canActivate: [AuthGuard] },
     ]
