@@ -39,8 +39,9 @@ const routes: Routes = [
       { path: 'admins/create', component: AddadminComponent, canActivate: [AuthGuard] },
     ]
   },
+  { path: 'projects/:id', component: ProjectdetailComponent },
   { path: 'register', component: RegisterviewComponent },
-  { path: 'accounts/verify-email', component: VerifyemailComponent },
+  { path: 'accounts/verify-email/:token', component: VerifyemailComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'account/reset-password', component: ResetpasswordComponent },
 
