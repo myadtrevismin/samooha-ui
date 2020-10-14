@@ -67,6 +67,9 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         document.getElementById('container-img').innerHTML = this.svgHtml;
         const svg = document.getElementById('container-img').querySelector('svg');
         const svgdoc = d3.select('svg').attr('width', '100%')
+        .attr('preserveAspectRatio', 'xMinYMin meet')
+        .attr('viewBox', '200 200 600 400')
+        .classed('svg-content-responsive', true)
         .attr('height', '100%')
         .call(d3.zoom()
         .on('zoom', ({transform}) => this.zoomed(transform)));
