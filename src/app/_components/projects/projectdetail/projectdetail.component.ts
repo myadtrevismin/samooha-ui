@@ -75,14 +75,14 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         .on('zoom', ({transform}) => this.zoomed(transform)));
         //console.log(svgdoc);
         svg.classList.add('w-100', 'h-auto');
-        const paths = document.querySelectorAll('[class*=\'plot\']');
+        const paths = document.querySelectorAll('[id*=\'plot\']');
         const pathArray = [];
         paths.forEach(x => {
-          const plotsection = this.project.sections.filter(a => a.name === x.classList[0].split('-')[1]);
+          const plotsection = this.project.sections.filter(a => a.name === x.id.split('-')[1]);
           if (plotsection?.length > 0){
             const colrelement = document.getElementById(plotsection[0].location);
-            if (colrelement !== null && plotsection[0].currentStatus === 2){
-              colrelement.style.fill = '#f8c6c8';
+            if (colrelement.firstElementChild !== null && plotsection[0].currentStatus === 2){
+               colrelement.firstElementChild.setAttribute('class', 'stfilled');
             }
           }
           x.addEventListener('click', (event: Event) => {

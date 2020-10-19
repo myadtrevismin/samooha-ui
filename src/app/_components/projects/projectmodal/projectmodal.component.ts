@@ -88,25 +88,28 @@ export class ProjectmodalComponent implements OnInit {
           this.svgHtml = logo;
           console.log(document.getElementById('output'));
           document.getElementById('output').innerHTML = this.svgHtml;
-          const paths = document.querySelectorAll("[class*='plot']");
+          const paths = document.querySelectorAll("[id*='plot']");
           const pathArray = [];
           const classList = [];
           paths.forEach(x => {
-            if (classList.indexOf(x.classList[0]) < 0){
-              pathArray.push({id: x.id, property: x.classList[0] });
-              classList.push(x.classList[0]);
-            }
+            console.log(x);
+            pathArray.push(x.id);
+            // if (classList.indexOf(x.classList[0]) < 0){
+            //   pathArray.push({id: x.id, property: x.classList[0] });
+            //   classList.push(x.classList[0]);
+            // }
           });
 
           plot.sections = [];
           pathArray.forEach(a => {
-            const splitText = a.property.split('-');
+            const splitText = a.split('-');
             const section = {
-              location: a.property,
+              location: a,
               name: splitText[1],
               category1: splitText[2],
               category2: splitText[3],
               category3: splitText[4],
+              category4: splitText[5],
               currentStatus: 0,
               startDate: new Date(),
               updateDate: new Date(),
@@ -118,7 +121,7 @@ export class ProjectmodalComponent implements OnInit {
           this.projectService.saveProject(plot).subscribe(x => { if (x > 0) {
             this.success = true;
             this.loading = false;
-          }}, (error) => { this.loading = false; this.error = error;});
+          }}, (error) => { this.loading = false; this.error = error; });
         });
     }
   }

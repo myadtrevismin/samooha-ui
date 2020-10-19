@@ -24,7 +24,7 @@ export class ProjectdialogComponent implements OnInit {
   buttonTxt;
 
   ngOnInit(): void {
-    const nameclass = this.data.evt.target.classList[0].split('-')[1];
+    const nameclass = this.data.path.id.split('-')[1];
     this.subProject = this.data.plot.sections.filter(x => x.name === nameclass)[0];
     this.buttonTxt = this.subProject.agentId === null ? 'Save' : 'Update';
     this.status = this.subProject.currentStatus === 2 ? 'Sold' : this.subProject.currentStatus === 1 ? 'On Hold' : 'Open';
