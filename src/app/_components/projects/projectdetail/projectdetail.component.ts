@@ -28,6 +28,8 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   uploadSuccess;
   error;
   plotsCount;
+  width = 900;
+  height = 500;
 
   ngOnInit(): void {
     this.loadProject();
@@ -51,8 +53,13 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   zoomed(transform){
+    // const e = d3.scale
+    // const tx = Math.min(0, Math.max(e.translate[0], this.width - this.width * e.scale));
+    // const ty = Math.min(0, Math.max(e.translate[1], this.height - this.height * e.scale));
+    // const transform1 = d3.zoomTransform(this);
     const g =  d3.select('g');
     g.attr('transform', transform);
+    // d3.z
   }
 
   // tslint:disable-next-line: typedef
@@ -66,17 +73,19 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         this.svgHtml = logo;
         document.getElementById('container-img').innerHTML = this.svgHtml;
         const svg = document.getElementById('container-img').querySelector('svg');
-        const svgdoc = d3.select('svg').attr('width', '100%')
+        const svgdoc = d3.select('svg').attr('width', this.width)
         .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('viewBox', '200 200 600 400')
+        .attr('viewBox', '400 0 600 400')
         .classed('svg-content-responsive', true)
-        .attr('height', '100%')
-        .call(d3.zoom()
+        .attr('height', this.height)
+        .call(d3.zoom().scaleExtent([1, 50])
         .on('zoom', ({transform}) => this.zoomed(transform)));
-        //console.log(svgdoc);
         svg.classList.add('w-100', 'h-auto');
         const paths = document.querySelectorAll('[id*=\'plot\']');
         const pathArray = [];
+        // const tooltip = d3.select('#container-img').append('div')
+        // .style('position', 'absolute').style('visibility', 'hidden')
+        // .text('I\'m a circle!');
         paths.forEach(x => {
           const plotsection = this.project.sections.filter(a => a.name === x.id.split('-')[1]);
           if (plotsection?.length > 0){
@@ -88,6 +97,10 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
           x.addEventListener('click', (event: Event) => {
             this.clickedOnPlot(event, x);
             x.setAttribute('title', x.id);
+          }, { passive: true});
+          x.addEventListener('mouseover', (event: Event) => {
+            // this.clickedOnPlot(event, x);
+           // this.mouseover(event, x, tooltip);
           });
           pathArray.push({
             id: x.id,
@@ -112,6 +125,22 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
                                      this.showProgress = false; }}, (error) => {this.showProgress = false; this.error = error; }  );
       }
     });
+  }
+
+  // tslint:disable-next-line: typedef
+  mouseover(evt, x, tooltip){
+    // element.transition()
+    // .duration(200)
+    // .style('opacity', .9);
+    // element.html(x.id)
+    // .style('left', x.firstElementChild.clientLeft + 'px')
+    // .style('top', x.firstElementChild.clientTop + 'px');
+    // const tooltip = d3.select(x).append('div')
+    // .style('position', 'absolute').style('z-index', '3000')
+    // .style('visibility', 'hidden').text('a simple tooltip');
+    tooltip.style('visibility', 'visible');
+    //x.firstElementChild.setAttribute('title', x.id);
+    // console.log(element);
   }
 
 }

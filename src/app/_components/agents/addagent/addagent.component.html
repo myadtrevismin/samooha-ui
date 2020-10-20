@@ -18,7 +18,7 @@
             <div class="form-group row">
               <label for="accountCode" class="col-sm-2 col-form-label">Agent ID</label>
               <div class="col-sm-10">
-                <input readonly type="text" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.accountCode.errors }"
+                <input [readonly]="!editable" type="text" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.accountCode.errors }"
                  formControlName="accountCode" name="accountCode" placeholder="Agent ID">
                 <div *ngIf="submitted && f.accountCode.errors" class="invalid-feedback">
                   <div *ngIf="f.accountCode.errors.required">Account Id is required</div>

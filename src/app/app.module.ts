@@ -37,6 +37,8 @@ import { ResetpasswordComponent } from './_components/resetpassword/resetpasswor
 import { ProfileComponent } from './_components/agents/profile/profile.component';
 import { AddadminComponent } from './_components/agents/addadmin/addadmin.component';
 import { AdminsComponent } from './_components/agents/admins/admins.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -75,12 +77,16 @@ import { AdminsComponent } from './_components/agents/admins/admins.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     BlobModule.forRoot()
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthorizationService] },
     { provide: HTTP_INTERCEPTORS, useClass: JwtinterceptInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [ProjectdialogComponent],
   bootstrap: [AppComponent]

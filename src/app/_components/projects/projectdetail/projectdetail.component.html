@@ -1,6 +1,6 @@
 <!-- <img class="img img-fluid" [src]="project?.filePath"> -->
-<div class="m-2">
-  <div class="p-2">
+<div class="statusclass">
+  <div class="p-2 statgrid">
     <ul class="list-inline">
       <li class="list-inline-item"><div class="d-flex"><div class="status-0"></div> <span>Total Plots: {{plotsCount?.total}}</span></div>
       </li>
@@ -9,13 +9,18 @@
       <li class="list-inline-item"><div class="d-flex"><div class="status-2"></div> <span>Sold: {{plotsCount?.sold}}</span> </div>
       </li>
     </ul>
+    <!-- <ul class="list-group">
+      <li class="list-group-item">Active item</li>
+      <li class="list-group-item">Item</li>
+      <li class="list-group-item disabled">Disabled item</li>
+    </ul> -->
   </div>
-  <div id="container-img">
-
-  </div>
-  <div *ngIf="uploadSuccess" class="alert alert-success mt-3 mb-0">Customer Details Updated Succesfully</div>
-  <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
 </div>
+<div id="container-img">
+
+</div>
+<div *ngIf="uploadSuccess" class="alert alert-success mt-3 mb-0">Customer Details Updated Succesfully</div>
+<div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
 <div class="spinner">
   <mat-spinner *ngIf="showProgress"></mat-spinner>
 </div>

@@ -1,54 +1,60 @@
-
 <h1 mat-dialog-title>
   {{data.plot.plotName}}
 </h1>
 <h5>Plot No: {{this.subProject.name}} - {{this.subProject.category1}} sqyards - {{this.status}} </h5>
 <div mat-dialog-content>
-  <form [formGroup]="subplotForm"  (submit)="onSubmit()">
+  <form [formGroup]="subplotForm" (submit)="onSubmit()">
     <div class="form-group">
       <mat-label>Customer Name</mat-label>
-      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" matInput formControlName="customerName">
+      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" matInput
+        formControlName="customerName">
       <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
         <div *ngIf="f.customerName.errors.required">Customer Name is required</div>
       </div>
     </div>
     <div class="form-group">
       <mat-label>Customer Phone No:</mat-label>
-      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" matInput formControlName="phone" >
+      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" matInput
+        formControlName="phone">
       <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
         <div *ngIf="f.phone.errors.required">Phone Number is required</div>
       </div>
     </div>
     <div class="form-group">
       <mat-label>Address</mat-label>
-      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" matInput formControlName="address">
+      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" matInput
+        formControlName="address">
       <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
         <div *ngIf="f.address.errors.required">Address is required</div>
       </div>
     </div>
     <div class="form-group">
       <mat-label>Price</mat-label>
-      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" matInput formControlName="price">
+      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" matInput
+        formControlName="price">
       <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
         <div *ngIf="f.price.errors.required">Address is required</div>
       </div>
     </div>
     <div class="form-group">
       <mat-label>Date:</mat-label>
-      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.updateDate.errors }" type="date" matInput formControlName="updateDate">
+      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.updateDate.errors }" type="date"
+        formControlName="updateDate">
       <div *ngIf="submitted && f.updateDate.errors" class="invalid-feedback">
         <div *ngIf="f.updateDate.errors.required">Date is required</div>
       </div>
     </div>
+
     <div class="form-group">
       <mat-label>Agent</mat-label>
       <select class="custom-select" (change)="changeAgent($event)" formControlName="agent">
         <option value="" disabled>Select an Agent</option>
-        <option *ngFor="let agent of agents" [ngValue]="agent.id">{{agent.firstName}} {{agent.lastName}} - {{agent.accountCode}}</option>
-     </select>
-     <div *ngIf="submitted && f.agent.errors" class="invalid-feedback">
-      <div *ngIf="f.agent.errors.required">Agent is required</div>
-    </div>
+        <option *ngFor="let agent of agents" [ngValue]="agent.id">{{agent.firstName}} {{agent.lastName}} -
+          {{agent.accountCode}}</option>
+      </select>
+      <div *ngIf="submitted && f.agent.errors" class="invalid-feedback">
+        <div *ngIf="f.agent.errors.required">Agent is required</div>
+      </div>
     </div>
   </form>
 </div>
@@ -56,4 +62,3 @@
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button class="ml-auto" mat-button (click)="onCloseDialog()" cdkFocusInitial>{{buttonTxt}}</button>
 </div>
-

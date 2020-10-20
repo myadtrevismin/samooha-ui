@@ -43,6 +43,7 @@ export class ProjectmodalComponent implements OnInit {
   config;
   percent;
   filepercent;
+  editable = false;
   logofile: IUploadProgress = { filename: 'Upload Logo', filePath: '', progress: 0};
   layoutfile: IUploadProgress = { filename: 'Upload Layout', filePath: '', progress: 0};
 

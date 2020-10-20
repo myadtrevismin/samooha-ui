@@ -27,6 +27,7 @@ export class AddagentComponent implements OnInit {
   @Input()
   role;
   agentText;
+  editable = false;
 
   ngOnInit(): void {
     const roleType = this.role || 'Agent';
