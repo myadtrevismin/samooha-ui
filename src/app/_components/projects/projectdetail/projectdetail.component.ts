@@ -143,4 +143,20 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     // console.log(element);
   }
 
+  printPage(){
+  //   const iframe = document.createElement('iframe');
+  //   iframe.style.display = 'none';
+  //   const container = document.getElementById('container-img');
+  //   console.log(container.firstElementChild.outerHTML);
+  //   const blob = new Blob([container.firstElementChild.outerHTML], {type: 'image/svg+xml'});
+  //   const url = URL.createObjectURL(blob);
+  //  // const canvas = document.getElementById('#testcanvas');
+  //   // canvas.toda("image/png");
+  //   // window.open(url);
+  //   const image = document.createElement('img');
+  //   iframe.src = url;
+  //   document.body.appendChild(iframe);
+  //   iframe.contentWindow.print();
+  }
+
 }

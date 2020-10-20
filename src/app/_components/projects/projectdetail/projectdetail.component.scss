@@ -83,10 +83,11 @@ $breakpoint-tablet: 640px;
 
 .statusclass{
   position: relative;
-  margin: 2px;
 
   .statgrid{
     position: relative;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

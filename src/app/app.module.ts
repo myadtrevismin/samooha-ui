@@ -39,6 +39,7 @@ import { AddadminComponent } from './_components/agents/addadmin/addadmin.compon
 import { AdminsComponent } from './_components/agents/admins/admins.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatListModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSortModule,
     BlobModule.forRoot()
   ],
   providers: [
