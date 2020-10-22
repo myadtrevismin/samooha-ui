@@ -30,6 +30,8 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   plotsCount;
   width = 900;
   height = 500;
+  projectSrc;
+  status;
 
   ngOnInit(): void {
     this.loadProject();
@@ -42,6 +44,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     .subscribe(x => {
       this.project = x;
       this.plotsCount = x.plotsCount;
+      this.status = this.project.sections.filter(a => a.currentStatus === 2)?.length === x.plotsCount ? 'Closed' : 'Open';
       this.loadfile();
       this.showProgress = false;
     });
@@ -80,7 +83,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         .attr('height', this.height)
         .call(d3.zoom().scaleExtent([1, 50])
         .on('zoom', ({transform}) => this.zoomed(transform)));
-        svg.classList.add('w-100', 'h-auto');
+        svg.classList.add('w-100', 'h-auto', 'svgfile');
         const paths = document.querySelectorAll('[id*=\'plot\']');
         const pathArray = [];
         // const tooltip = d3.select('#container-img').append('div')
@@ -139,24 +142,26 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     // .style('position', 'absolute').style('z-index', '3000')
     // .style('visibility', 'hidden').text('a simple tooltip');
     tooltip.style('visibility', 'visible');
-    //x.firstElementChild.setAttribute('title', x.id);
+    // x.firstElementChild.setAttribute('title', x.id);
     // console.log(element);
   }
 
-  printPage(){
-  //   const iframe = document.createElement('iframe');
-  //   iframe.style.display = 'none';
-  //   const container = document.getElementById('container-img');
-  //   console.log(container.firstElementChild.outerHTML);
-  //   const blob = new Blob([container.firstElementChild.outerHTML], {type: 'image/svg+xml'});
-  //   const url = URL.createObjectURL(blob);
-  //  // const canvas = document.getElementById('#testcanvas');
-  //   // canvas.toda("image/png");
-  //   // window.open(url);
-  //   const image = document.createElement('img');
-  //   iframe.src = url;
-  //   document.body.appendChild(iframe);
-  //   iframe.contentWindow.print();
+  printPage(): void{
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    d3.select('.svgfile').attr('width', 300)
+    .attr('preserveAspectRatio', 'xMinYMin meet')
+    .classed('svg-content-responsive', true)
+    .attr('height', 300);
+    const container = document.getElementById('container-img');
+    const constcovered = container.firstElementChild.outerHTML;
+    const blob = new Blob([constcovered], {type: 'image/svg+xml'});
+    const imgsrc = 'data:image/svg+xml;base64,' + btoa( unescape( encodeURIComponent( container.firstElementChild.nodeValue ) ) );
+    const url = URL.createObjectURL(blob);
+    this.projectSrc = this.sanitizer.bypassSecurityTrustResourceUrl(imgsrc);
+    const image = document.createElement('img');
+    iframe.src = url;
+    document.body.appendChild(iframe);
+    iframe.contentWindow.print();
   }
-
 }

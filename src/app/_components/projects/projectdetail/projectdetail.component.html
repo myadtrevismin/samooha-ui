@@ -9,9 +9,10 @@
       <li class="list-inline-item"><div class="d-flex"><div class="status-2"></div> <span>Sold: {{plotsCount?.sold}}</span> </div>
       </li>
     </ul>
-    <!-- <div>
-      <a mat-icon-button (click)="printPage()"><mat-icon>print</mat-icon></a>
-    </div> -->
+    <div>
+      <h4>Status: {{status}}</h4>
+      <!-- <a mat-icon-button (click)="printPage()"><mat-icon>print</mat-icon></a> -->
+    </div>
   </div>
 </div>
 <div id="container-img">
@@ -22,3 +23,4 @@
 <div class="spinner">
   <mat-spinner *ngIf="showProgress"></mat-spinner>
 </div>
+
