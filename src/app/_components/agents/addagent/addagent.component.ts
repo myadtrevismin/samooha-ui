@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlobService, UploadParams } from 'angular-azure-blob-service';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/_model/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
+import { IsValid } from './phonecheck';
 
 @Component({
   selector: 'app-addagent',
@@ -28,10 +31,19 @@ export class AddagentComponent implements OnInit {
   role;
   agentText;
   editable = false;
+  accounts;
 
   ngOnInit(): void {
     const roleType = this.role || 'Agent';
     this.agentText = roleType === 'Agent' ? 'Add Agent' : 'Add Admin';
+    (this.accountService.getAll()
+    .subscribe(
+      x => {
+        this.accounts = x;
+        return x;
+      }
+    )) ;
+
     this.agentForm = this.formBuilder.group({
       accountCode: ['', Validators.required],
       firstName : ['', Validators.required],
@@ -147,6 +159,15 @@ export class AddagentComponent implements OnInit {
   randomDbGenerator(){
     this.accountService.getAgentcodes()
     .subscribe(x =>  this.agentForm.get('accountCode').setValue(x.NewAgent), (error) => this.error = error);
+  }
+
+  onPhoneChange(event): void{
+    const matched = this.accounts.some((x: User) => x.phoneNumber === event.target.value);
+    if (matched){
+      const matchedControl = this.agentForm.controls['phone'];
+      matchedControl.setErrors({ phoneExist: true });
+    }
+    console.log(event.target.value);
   }
 
 }

@@ -70,7 +70,7 @@
   </div>
   <div class="card">
     <div class="mat-container mat-elevation-z8">
-      <table mat-table #table [dataSource]="dataSource">
+      <table mat-table #table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef> S.No. </th>
           <td mat-cell *matCellDef="let i = index">
@@ -79,19 +79,19 @@
         </ng-container>
         <ng-container matColumnDef="projectid">
           <th mat-header-cell *matHeaderCellDef> Project Id </th>
-          <td mat-cell *matCellDef="let row"> {{row.plot.plotCode}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.plotCode}} </td>
         </ng-container>
         <ng-container matColumnDef="logo">
           <th mat-header-cell *matHeaderCellDef> Project Logo </th>
-          <td mat-cell *matCellDef="let row"> <img class="img logo img-fluid" [src]="row.plot.logoPath"></td>
+          <td mat-cell *matCellDef="let row"> <img class="img logo img-fluid" [src]="row.plotLogo"></td>
         </ng-container>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Project Name </th>
-          <td mat-cell *matCellDef="let row">{{row.plot.plotName}} </td>
+          <td mat-cell *matCellDef="let row">{{row.plotName}} </td>
         </ng-container>
         <ng-container matColumnDef="plots">
-          <th mat-header-cell *matHeaderCellDef> Plot Sold </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          <th mat-header-cell *matHeaderCellDef> Plots Sold </th>
+          <td mat-cell *matCellDef="let row"> {{row.count}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

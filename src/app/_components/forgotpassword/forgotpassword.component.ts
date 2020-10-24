@@ -12,13 +12,16 @@ export class ForgotpasswordComponent implements OnInit {
 
   submitted;
   email;
+  success;
+  error;
 
   ngOnInit(): void {
   }
 
   // tslint:disable-next-line: typedef
   emailSubmit(){
-    this.accountservice.forgotpassword({email: this.email}).subscribe(x => console.log(x)) ;
+    this.accountservice.forgotpassword({email: this.email}).subscribe(x => this.success = x.message,
+      (error) => this.error = error) ;
   }
 
 }

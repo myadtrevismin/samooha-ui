@@ -41,13 +41,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.accountService.getAgentById(this.profileId)
                         .subscribe(x => {
                           this.agent = x;
-                          if (x.subProjects !== null){
+                          if (x.agentProjects !== null){
                             const projects = [];
-                            x.subProjects.forEach(element => {
+                            x.agentProjects.forEach(element => {
                               projects.push(element);
                             });
                             this.dataSource.data = projects;
-                            console.log(projects);
                           }
                         }, (error) => this.error = error);
   }

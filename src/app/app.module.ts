@@ -40,6 +40,7 @@ import { AdminsComponent } from './_components/agents/admins/admins.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSortModule} from '@angular/material/sort';
+import { PhonevalidatePipe } from './_components/agents/addagent/phonevalidate.pipe';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {MatSortModule} from '@angular/material/sort';
     ResetpasswordComponent,
     ProfileComponent,
     AddadminComponent,
-    AdminsComponent
+    AdminsComponent,
+    PhonevalidatePipe
   ],
   imports: [
     BrowserModule,

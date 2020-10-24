@@ -3,10 +3,12 @@ import * as d3zoom from 'd3-zoom';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectserviceService } from 'src/app/_services/projects/projectservice.service';
 import { ProjectdialogComponent } from '../projectdialog/projectdialog.component';
+import { BlobService, UploadParams } from 'angular-azure-blob-service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute,
               private projects: ProjectserviceService,
               private sanitizer: DomSanitizer,
+              private blob: BlobService,
               private http: HttpClient,
               public dialog: MatDialog) {}
 
@@ -32,6 +35,10 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   height = 500;
   projectSrc;
   status;
+  config;
+  progress;
+  filePath;
+  fileImg;
 
   ngOnInit(): void {
     this.loadProject();
@@ -56,13 +63,10 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   zoomed(transform){
-    // const e = d3.scale
-    // const tx = Math.min(0, Math.max(e.translate[0], this.width - this.width * e.scale));
-    // const ty = Math.min(0, Math.max(e.translate[1], this.height - this.height * e.scale));
-    // const transform1 = d3.zoomTransform(this);
     const g =  d3.select('g');
+    console.log(g);
+    console.log(transform);
     g.attr('transform', transform);
-    // d3.z
   }
 
   // tslint:disable-next-line: typedef
@@ -74,21 +78,22 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
       })
       .subscribe(logo => {
         this.svgHtml = logo;
+        const container = document.getElementById('container-img');
+        const {width, height} = container.getBoundingClientRect();
         document.getElementById('container-img').innerHTML = this.svgHtml;
         const svg = document.getElementById('container-img').querySelector('svg');
-        const svgdoc = d3.select('svg').attr('width', this.width)
+        const viewBox = '0 0 ' + (height) + ' ' + (width);
+        const svgdoc = d3.select('svg')
         .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('viewBox', '400 0 600 400')
+        .attr('width', width)
+        .attr('viewBox', viewBox)
         .classed('svg-content-responsive', true)
-        .attr('height', this.height)
+        .attr('height', height)
         .call(d3.zoom().scaleExtent([1, 50])
         .on('zoom', ({transform}) => this.zoomed(transform)));
-        svg.classList.add('w-100', 'h-auto', 'svgfile');
+        svg.classList.add('svgfile');
         const paths = document.querySelectorAll('[id*=\'plot\']');
         const pathArray = [];
-        // const tooltip = d3.select('#container-img').append('div')
-        // .style('position', 'absolute').style('visibility', 'hidden')
-        // .text('I\'m a circle!');
         paths.forEach(x => {
           const plotsection = this.project.sections.filter(a => a.name === x.id.split('-')[1]);
           if (plotsection?.length > 0){
@@ -102,8 +107,6 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
             x.setAttribute('title', x.id);
           }, { passive: true});
           x.addEventListener('mouseover', (event: Event) => {
-            // this.clickedOnPlot(event, x);
-           // this.mouseover(event, x, tooltip);
           });
           pathArray.push({
             id: x.id,
@@ -132,36 +135,76 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   mouseover(evt, x, tooltip){
-    // element.transition()
-    // .duration(200)
-    // .style('opacity', .9);
-    // element.html(x.id)
-    // .style('left', x.firstElementChild.clientLeft + 'px')
-    // .style('top', x.firstElementChild.clientTop + 'px');
-    // const tooltip = d3.select(x).append('div')
-    // .style('position', 'absolute').style('z-index', '3000')
-    // .style('visibility', 'hidden').text('a simple tooltip');
     tooltip.style('visibility', 'visible');
-    // x.firstElementChild.setAttribute('title', x.id);
-    // console.log(element);
   }
 
   printPage(): void{
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    d3.select('.svgfile').attr('width', 300)
+    const g =  d3.select('g');
+    g.attr('transform', 'translate(30 30) scale(1)');
+    const svgElement = document.getElementsByClassName('svgfile')[0];
+    const {width, height} = svgElement.getBoundingClientRect();
+    const clonedSvgElement: any = svgElement.cloneNode(true);
+    d3.select(clonedSvgElement)
+    .attr('width', '100%').attr('height', '100%')
     .attr('preserveAspectRatio', 'xMinYMin meet')
-    .classed('svg-content-responsive', true)
-    .attr('height', 300);
-    const container = document.getElementById('container-img');
-    const constcovered = container.firstElementChild.outerHTML;
-    const blob = new Blob([constcovered], {type: 'image/svg+xml'});
-    const imgsrc = 'data:image/svg+xml;base64,' + btoa( unescape( encodeURIComponent( container.firstElementChild.nodeValue ) ) );
-    const url = URL.createObjectURL(blob);
-    this.projectSrc = this.sanitizer.bypassSecurityTrustResourceUrl(imgsrc);
-    const image = document.createElement('img');
-    iframe.src = url;
-    document.body.appendChild(iframe);
-    iframe.contentWindow.print();
+    .attr('viewBox', '0 0 ' + 1920 + ' ' + 1080)
+    .classed('svg-content-responsive', true);
+    const outerHTML = clonedSvgElement.outerHTML;
+    const svgString = new XMLSerializer().serializeToString(clonedSvgElement);
+    const index = svgString.replace('&amp;#38;#38;#38;#38;#38;#38;ns_ai;', 'http://www.w3.org/2000/svg');
+
+    const blobs = new Blob([index], {type: 'image/svg+xml;charset=utf-8'});
+    const blobURL = URL.createObjectURL(blobs);
+
+    const dl = document.createElement('a');
+    document.body.appendChild(dl); // This line makes it work in Firefox.
+    dl.setAttribute('href', blobURL);
+    dl.setAttribute('download', 'test.svg');
+    dl.click();
+    document.body.removeChild(dl);
+  }
+
+  upload(file): void {
+    const Config: UploadParams = {
+      sas: environment.blobkey,
+      storageAccount: environment.bloburl,
+      containerName: 'plots'
+    };
+
+    if (file !== null) {
+      const baseUrl = this.blob.generateBlobUrl(Config, file.name);
+      this.config = {
+        baseUrl,
+        sasToken: Config.sas,
+        file,
+        complete: () => {
+          this.filePath = baseUrl;
+        },
+        error: (err) => {
+          console.log('Error:', err);
+        },
+        progress: (percent) => {
+          this.progress = percent;
+        }
+      };
+      this.blob.upload(this.config);
+    }
+  }
+
+
+
+  downloadImage(canvas): void{
+    const png = canvas.toDataURL();
+    this.download(png, 'download.png');
+  }
+
+  download(href, name): void{
+    const link = document.createElement('a');
+    link.download = name;
+    link.style.opacity = '0';
+    document.append(link);
+    link.href = href;
+    link.click();
+    link.remove();
   }
 }
