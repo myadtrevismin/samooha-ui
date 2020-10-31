@@ -159,7 +159,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     const dl = document.createElement('a');
     document.body.appendChild(dl); // This line makes it work in Firefox.
     dl.setAttribute('href', blobURL);
-    dl.setAttribute('download', 'test.svg');
+    dl.setAttribute('download', 'plot.svg');
     dl.click();
     document.body.removeChild(dl);
   }
