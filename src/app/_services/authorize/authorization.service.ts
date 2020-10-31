@@ -3,6 +3,7 @@ import {
   HttpClient, HttpParams
 } from '@angular/common/http';
 import {
+  ActivatedRoute,
   Router
 } from '@angular/router';
 import {
@@ -32,7 +33,7 @@ export class AuthorizationService {
   public user: Observable <User>;
   private refreshTokenTimeout;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private activeRoute: ActivatedRoute) {
     this.userSubject = new BehaviorSubject < User > (null);
     this.user = this.userSubject.asObservable();
   }

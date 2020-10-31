@@ -44,7 +44,7 @@ export class AppnavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.userValue;
-    if (this.user.role === 'Agent'){
+    if (this.user?.role === 'Agent'){
       this.projects[0].hidden = true;
       this.agents[0].hidden = true;
     }

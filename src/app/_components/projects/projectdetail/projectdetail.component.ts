@@ -79,7 +79,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
           if (plotsection?.length > 0){
             const colrelement = document.getElementById(plotsection[0].location);
             if (colrelement !== null && plotsection[0].currentStatus === 2){
-              colrelement.style.fill = '#f8c6c8';
+              colrelement.style.fill = '#FF0000';
             }
           }
           x.addEventListener('click', (event: Event) => {
