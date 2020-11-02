@@ -5,6 +5,7 @@ import { AddadminComponent } from './_components/agents/addadmin/addadmin.compon
 import { AddagentComponent } from './_components/agents/addagent/addagent.component';
 import { AdminsComponent } from './_components/agents/admins/admins.component';
 import { AgentsComponent } from './_components/agents/agents.component';
+import { EditprofileComponent } from './_components/agents/editprofile/editprofile.component';
 import { ProfileComponent } from './_components/agents/profile/profile.component';
 import { ForgotpasswordComponent } from './_components/forgotpassword/forgotpassword.component';
 import { HomeComponent } from './_components/home/home.component';
@@ -17,6 +18,7 @@ import { ProjectmodalComponent } from './_components/projects/projectmodal/proje
 import { RegisterviewComponent } from './_components/registerview/registerview.component';
 import { ResetpasswordComponent } from './_components/resetpassword/resetpassword.component';
 import { VerifyemailComponent } from './_components/verifyemail/verifyemail.component';
+import { EditprojectComponent } from './_components/projects/editproject/editproject.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,9 +33,11 @@ const routes: Routes = [
       { path: '',  component: HomeComponent, pathMatch: 'full' },
       { path: 'projects', component: ProjectlistComponent, canActivate: [AuthGuard] },
       { path: 'projects/create', component: ProjectmodalComponent, canActivate: [AuthGuard] },
+      { path: 'projects/edit/:id', component: EditprojectComponent, canActivate: [AuthGuard] },
       { path: 'agents', component: AgentsComponent, canActivate: [AuthGuard] },
       { path: 'agents/create', component: AddagentComponent, canActivate: [AuthGuard] },
       { path: 'agents/profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: 'profile/:id', component: EditprofileComponent, canActivate: [AuthGuard] },
       { path: 'projects/:id', component: ProjectdetailComponent, canActivate: [AuthGuard] },
       { path: 'admins', component: AdminsComponent, canActivate: [AuthGuard] },
       { path: 'admins/create', component: AddadminComponent, canActivate: [AuthGuard] },

@@ -1,0 +1,91 @@
+<h1>Edit Project</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a [routerLink]="['/dashboard/projects']">Projects</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Project</li>
+  </ol>
+</nav>
+
+<div class="container mb-2">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Edit Project</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="plotForm" (submit)="plotSubmit()">
+            <div class="pf-image">
+              <div class="d-block justify-content-center">
+                <img class="img img-thumbnail" [src]="editableProject?.logoPath || 'assets/Samooha-Icon.png'" (click)="profilePic.click()">
+                <div *ngIf="logofile.progress  > 0 && logofile.progress  < 100"><span class="spinner-border spinner-border-sm"  role="status" aria-hidden="true"></span> {{logofile.filename}}</div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="plotCode" class="col-sm-2 col-form-label">Project ID</label>
+              <div class="col-sm-10">
+                <input type="text" [readonly]="!editable" class="form-control" formControlName="plotCode" name="plotCode" id="projectCodeCode" placeholder="Project ID">
+              </div>
+            </div>
+              <div class="form-group row">
+                <label for="location" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="name" name="name" id="name" placeholder="Name">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="location" class="col-sm-2 col-form-label">Location</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" formControlName="location" name="location" id="location"
+                  placeholder="Location">
+                </div>
+              </div>
+              <div class="form-group row" hidden>
+                <label for="logo" class="col-sm-2 col-form-label">Upload Logo</label>
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" #profilePic formControlName="logo" (change)="upload($event.target.files, true)" id="logo" name="logo">
+                      <label class="custom-file-label" for="logo">  <span class="spinner-border spinner-border-sm" *ngIf="logofile.progress > 0 && logofile.progress < 100" role="status" aria-hidden="true"></span> {{logofile.filename}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="uploadedDate" class="col-sm-2 col-form-label">Date</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" formControlName="uploadedDate" name="uploadedDate" id="uploadedDate" placeholder="Date">
+                </div>
+              </div>
+              <!-- <div class="form-group row">
+                <label for="plotFile" class="col-sm-2 col-form-label">Upload Layout</label>
+                <div class="col-sm-10">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" formControlName="filePath" (change)="upload($event.target.files, false)" id="filePath" name="filePath">
+                      <label class="custom-file-label" for="filePath">
+                        <span class="spinner-border spinner-border-sm" *ngIf="layoutfile.progress > 0 && layoutfile.progress < 100" role="status" aria-hidden="true"></span>{{layoutfile.filename}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="d-flex text-center justify-content-center" role="group" aria-label="">
+                <button type="submit" [disabled]="plotForm.invalid || submitted" class="btn btn-primary">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Submit
+                </button>
+              </div>
+          <div *ngIf="success" class="alert alert-success mt-3 mb-0">Project Added Successfully</div>
+          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<div id="output" class="hidden">
+</div>
+

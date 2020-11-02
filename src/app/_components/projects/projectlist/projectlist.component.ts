@@ -27,12 +27,13 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   projects$;
+  loginuser;
   dataSource: MatTableDataSource<any>;
   total$: Observable<number>;
-  displayedColumns: string[] = ['sno', 'projectid', 'logo', 'name', 'date'];
+  displayedColumns: string[] = ['sno', 'projectid', 'logo', 'name', 'date', 'star'];
 
   ngOnInit(): void {
-    console.log(this.auth.userValue);
+    this.loginuser = this.auth.userValue.role;
     this.dataSource = new MatTableDataSource();
     this.loadProjects();
   }
@@ -47,7 +48,7 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
   loadProjects(){
     this.projectservice.getProjects().pipe(map(projects => {
       this.dataSource.data = projects;
-    })).subscribe(x => (console.log(this.projects$)) );
+    })).subscribe();
   }
 
   // tslint:disable-next-line: typedef
@@ -61,7 +62,6 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   click(event: Event, row){
-    console.log(event);
     event.preventDefault();
     this.router.navigate(['/dashboard/projects', row.plotId]);
   }
@@ -75,5 +75,21 @@ export class ProjectlistComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  // tslint:disable-next-line: typedef
+  clickEdit(event, row){
+    event.preventDefault();
+    this.router.navigate(['/dashboard/projects/edit', row.plotId]);
+  }
+
+  // tslint:disable-next-line: typedef
+  clickDelete(event, row){
+    event.preventDefault();
+    this.projectservice.deleteProject(row.plotId).subscribe(x => {
+      this.loadProjects();
+    });
+
+  }
+
 
 }

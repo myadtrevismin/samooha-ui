@@ -59,7 +59,21 @@ export class AccountService {
   // tslint:disable-next-line: typedef
   registerAgent(model) {
     return this.http.post<any> (`${environment.apiUrl}/api/accounts/register`, model, {
-      withCredentials: true
+      withCredentials: true,
+    })
+    .pipe(map(user => {
+      return user;
+    }));
+  }
+
+  // tslint:disable-next-line: typedef
+  updateProfile(model){
+    const options = model.id ?
+    { params: new HttpParams().set('id', model.id)} : {};
+
+    return this.http.put<any> (`${environment.apiUrl}/api/accounts/profile`, model, {
+      withCredentials: true,
+      params: options.params
     })
     .pipe(map(user => {
       return user;

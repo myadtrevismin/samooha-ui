@@ -41,7 +41,6 @@ export class AgentsComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line: typedef
   loadAgents(){
    this.loginuser = this.auth.userValue.role;
-   console.log(this.loginuser);
    this.roleType = this.role || 'Agent';
    this.agentText = this.roleType === 'Agent' ? 'Agents' : 'Admins';
    this.accountService.getAll().subscribe(x => {
@@ -78,6 +77,12 @@ export class AgentsComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  // tslint:disable-next-line: typedef
+  clickEdit($event, row){
+    $event.preventDefault();
+    this.router.navigate(['/dashboard/profile', row.id]);
   }
 
 }

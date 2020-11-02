@@ -29,6 +29,8 @@ export class AddagentComponent implements OnInit {
   projectCode;
   @Input()
   role;
+  @Input()
+  editProfile;
   agentText;
   editable = false;
   accounts;
@@ -167,7 +169,6 @@ export class AddagentComponent implements OnInit {
       const matchedControl = this.agentForm.controls['phone'];
       matchedControl.setErrors({ phoneExist: true });
     }
-    console.log(event.target.value);
   }
 
 }

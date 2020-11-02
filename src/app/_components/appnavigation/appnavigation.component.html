@@ -49,7 +49,7 @@
       <div *ngIf="this.user.role === 'SuperAdmin'">
         <mat-divider></mat-divider>
         <div mat-subheader (click)="clickSubheader('admin')">
-          <mat-icon>person_add</mat-icon> <span class="p-2">Admins</span>
+          <mat-icon>person_add</mat-icon> <span class="p-2">Admin</span>
           <span [ngSwitch]="admincollapsed" class="ml-auto">
             <span  *ngSwitchCase="true">
               <mat-icon>expand_more</mat-icon>
