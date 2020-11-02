@@ -20,13 +20,13 @@ export class AppnavigationComponent implements OnInit {
   ];
 
   agents = [
-    {id: 0, name: 'Add Agents', active: true, icon: 'description', path: '/dashboard/agents/create', hidden: false},
+    {id: 0, name: 'Add Agent', active: true, icon: 'description', path: '/dashboard/agents/create', hidden: false},
     {id: 1, name: 'View Agents', active: false, icon: 'person_add', path: '/dashboard/agents', hidden: false},
   ];
 
   admins = [
     {id: 0, name: 'Add Admin', active: false, icon: 'person_add', path: '/dashboard/admins/create', hidden: false},
-    {id: 1, name: 'View Admins', active: false, icon: 'description', path: '/dashboard/admins', hidden: false}
+    {id: 1, name: 'View Admin', active: false, icon: 'description', path: '/dashboard/admins', hidden: false}
   ];
 
   projectcollapsed = false;

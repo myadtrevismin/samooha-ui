@@ -51,7 +51,8 @@
           <ng-container matColumnDef="star"  stickyEnd>
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row">
-              <mat-icon [hidden]="loginuser === 'Agent'" color="primary" (click)="clickDelete($event,row)">delete_forever</mat-icon>
+              <a [hidden]="loginuser === 'Agent'" (click)="clickEdit($event,row)"><mat-icon  color="accent">edit</mat-icon></a>
+              <a [hidden]="loginuser === 'Agent'" (click)="clickDelete($event,row)"><mat-icon color="primary">delete_forever</mat-icon></a>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

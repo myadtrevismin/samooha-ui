@@ -1,8 +1,8 @@
-<h1>{{agentText}}</h1>
+<h1>Edit User Details</h1>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{agentText}}</li>
+    <li class="breadcrumb-item active" aria-current="page">Edit User Details</li>
   </ol>
 </nav>
 
@@ -11,10 +11,16 @@
     <div class="col-md-10 offset-md-1">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{agentText}}</mat-card-title>
+          <mat-card-title>Edit User Details</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form [formGroup]="agentForm" (submit)="submitAgent()">
+          <form [formGroup]="profileForm" (submit)="submitUser()">
+            <div class="pf-image">
+              <div class="d-block justify-content-center">
+                <img class="img img-thumbnail" [src]="profile?.profileFile" (click)="profilePic.click()">
+                <div><span class="spinner-border spinner-border-sm" *ngIf="progress > 0 && progress < 100" role="status" aria-hidden="true"></span> {{profilefile}}</div>
+              </div>
+            </div>
             <div class="form-group row">
               <label for="accountCode" class="col-sm-2 col-form-label">Agent ID</label>
               <div class="col-sm-10">
@@ -44,12 +50,12 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group row">
-                <label for="profileFile" class="col-sm-2 col-form-label">Agent Profile Image</label>
+              <div class="form-group row" hidden>
+                <label for="profileFile" class="col-sm-2 col-form-label">Profile Image</label>
                 <div class="col-sm-10">
                   <div class="input-group">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" formControlName="profileFile" (change)="upload($event.target.files)" name="profileFile">
+                      <input type="file" class="custom-file-input" #profilePic formControlName="profileFile" (change)="upload($event.target.files)" name="profileFile">
                       <label class="custom-file-label" for="logo">  <span class="spinner-border spinner-border-sm" *ngIf="progress > 0 && progress < 100" role="status" aria-hidden="true"></span> {{profilefile}}</label>
                     </div>
                   </div>
@@ -70,7 +76,7 @@
               <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                  <input type="email" class="form-control is-valid" readonly [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
                   formControlName="email" name="email" id="email"
                   placeholder="Email">
                   <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -97,14 +103,15 @@
               </div>
 
               <div class="d-flex text-center justify-content-center" role="group" aria-label="">
-                <button type="submit" [disabled]="agentForm.invalid" class="btn btn-primary">Submit</button>
+                <button type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">Submit</button>
               </div>
           </form>
-          <div *ngIf="success" class="alert alert-success mt-3 mb-0">User Added Successfully</div>
+          <div *ngIf="success" class="alert alert-success mt-3 mb-0">User Updated Successfully</div>
           <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
 </div>
+
 

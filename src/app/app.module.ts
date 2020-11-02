@@ -41,6 +41,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSortModule} from '@angular/material/sort';
 import { PhonevalidatePipe } from './_components/agents/addagent/phonevalidate.pipe';
+import { EditprofileComponent } from './_components/agents/editprofile/editprofile.component';
+import { DatePipe } from '@angular/common';
+import { EditprojectComponent } from './_components/projects/editproject/editproject.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { PhonevalidatePipe } from './_components/agents/addagent/phonevalidate.p
     ProfileComponent,
     AddadminComponent,
     AdminsComponent,
-    PhonevalidatePipe
+    PhonevalidatePipe,
+    EditprofileComponent,
+    EditprojectComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +95,8 @@ import { PhonevalidatePipe } from './_components/agents/addagent/phonevalidate.p
     { provide: HTTP_INTERCEPTORS, useClass: JwtinterceptInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    DatePipe
   ],
   entryComponents: [ProjectdialogComponent],
   bootstrap: [AppComponent]

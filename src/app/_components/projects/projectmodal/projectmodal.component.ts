@@ -18,6 +18,7 @@ interface IUploadProgress {
 }
 
 @Component({
+  selector: 'app-projectadd',
   templateUrl: './projectmodal.component.html',
   styleUrls: ['./projectmodal.component.scss']
 })

@@ -33,6 +33,22 @@ export class ProjectserviceService {
   }
 
   // tslint:disable-next-line: typedef
+  updateProject(project){
+    return this.http.put(`${environment.apiUrl}/api/projects/update`, project, {
+      withCredentials: true,
+      params: new HttpParams().append('id', project.plotId)
+    });
+  }
+
+    // tslint:disable-next-line: typedef
+    deleteProject(projectId){
+      return this.http.delete(`${environment.apiUrl}/api/projects`, {
+        withCredentials: true,
+        params: new HttpParams().append('id', projectId)
+      });
+    }
+
+  // tslint:disable-next-line: typedef
   getsubProjects(id, name){
     let params = new HttpParams();
     params = params.append('plotId', id);
