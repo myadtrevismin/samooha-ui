@@ -50,7 +50,7 @@ export class AddagentComponent implements OnInit {
       accountCode: ['', Validators.required],
       firstName : ['', Validators.required],
       lastName : ['', Validators.required],
-      profileFile : ['', Validators.required],
+      profileFile : [''],
       phone : ['', Validators.required],
       email: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
