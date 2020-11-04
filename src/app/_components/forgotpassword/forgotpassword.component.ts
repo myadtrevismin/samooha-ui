@@ -20,6 +20,7 @@ export class ForgotpasswordComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   emailSubmit(){
+    this.submitted = true;
     this.accountservice.forgotpassword({email: this.email}).subscribe(x => this.success = x.message,
       (error) => this.error = error) ;
   }

@@ -42,7 +42,7 @@ export class ResetpasswordComponent implements OnInit {
     if (this.resetpasswordForm.valid){
       this.accountService.resetPassword(this.resetpasswordForm.value)
                             .subscribe(x => {
-                              this.message = 'Please check your email for password reset instructions';
+                              this.message = x.message;
                               this.success = true; } , (error) => this.error = error);
 
     }
