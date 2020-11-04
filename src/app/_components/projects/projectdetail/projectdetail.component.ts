@@ -9,6 +9,7 @@ import { ProjectserviceService } from 'src/app/_services/projects/projectservice
 import { ProjectdialogComponent } from '../projectdialog/projectdialog.component';
 import { BlobService, UploadParams } from 'angular-azure-blob-service';
 import { environment } from 'src/environments/environment';
+import { AuthorizationService } from 'src/app/_services/authorize/authorization.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
               private sanitizer: DomSanitizer,
               private blob: BlobService,
               private http: HttpClient,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog,
+              public authService: AuthorizationService) {}
 
   project;
   showProgress = true;
@@ -102,12 +104,16 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
                colrelement.firstElementChild.setAttribute('class', 'stfilled');
             }
           }
-          x.addEventListener('click', (event: Event) => {
-            this.clickedOnPlot(event, x);
-            x.setAttribute('title', x.id);
-          }, { passive: true});
-          x.addEventListener('mouseover', (event: Event) => {
-          });
+
+          if (this.authService.userValue.role !== 'Agent'){
+            x.addEventListener('click', (event: Event) => {
+              this.clickedOnPlot(event, x);
+              x.setAttribute('title', x.id);
+            }, { passive: true});
+
+            x.addEventListener('mouseover', (event: Event) => {
+            });
+          }
           pathArray.push({
             id: x.id,
             status: x.classList[0]
