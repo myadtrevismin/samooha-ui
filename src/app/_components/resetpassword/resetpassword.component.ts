@@ -17,6 +17,7 @@ export class ResetpasswordComponent implements OnInit {
   public resetpasswordForm: FormGroup;
   public submitted = false;
   message;
+  success;
   error;
 
   ngOnInit(): void {
@@ -40,7 +41,9 @@ export class ResetpasswordComponent implements OnInit {
 
     if (this.resetpasswordForm.valid){
       this.accountService.resetPassword(this.resetpasswordForm.value)
-                            .subscribe(x => this.message = x.message, (error) => this.error = error);
+                            .subscribe(x => {
+                              this.message = 'Please check your email for password reset instructions';
+                              this.success = true; } , (error) => this.error = error);
 
     }
 
