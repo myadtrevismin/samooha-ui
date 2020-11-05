@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   { path: 'projects/:id', component: ProjectdetailComponent },
   { path: 'register', component: RegisterviewComponent },
-  { path: 'accounts/verify-email/:token', component: VerifyemailComponent },
+  { path: 'verify-email', component: VerifyemailComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'account/reset-password', component: ResetpasswordComponent },
 

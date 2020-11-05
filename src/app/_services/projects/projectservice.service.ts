@@ -42,7 +42,7 @@ export class ProjectserviceService {
 
     // tslint:disable-next-line: typedef
     deleteProject(projectId){
-      return this.http.delete(`${environment.apiUrl}/api/projects`, {
+      return this.http.get(`${environment.apiUrl}/api/projects/delete`, {
         withCredentials: true,
         params: new HttpParams().append('id', projectId)
       });
