@@ -44,7 +44,10 @@ export class AgentsComponent implements OnInit, AfterViewInit {
    this.roleType = this.role || 'Agent';
    this.agentText = this.roleType === 'Agent' ? 'Agents' : 'Admins';
    this.accountService.getAll().subscribe(x => {
-      this.dataSource.data = x.filter(a => a.role === this.roleType);
+      const users = x.filter(a => a.role === this.roleType);
+      console.log(users);
+      console.log(this.roleType);
+      this.dataSource.data = this.loginuser === 'Agent' ? users.filter(a => a.id === this.auth.userValue.id) : users;
       this.deleteMessage = null;
       this.error = null;
     });

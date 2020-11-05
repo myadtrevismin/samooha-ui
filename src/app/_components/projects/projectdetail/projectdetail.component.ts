@@ -41,8 +41,10 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   progress;
   filePath;
   fileImg;
+  role;
 
   ngOnInit(): void {
+    this.role = this.route.snapshot.queryParams.role;
     this.loadProject();
   }
 
@@ -105,7 +107,9 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
             }
           }
 
-          if (this.authService.userValue.role !== 'Agent'){
+          const nfsclass = x.querySelector('.nfs');
+          const userrole = this.authService.userValue.role || this.role;
+          if (userrole !== 'Agent' && nfsclass === null){
             x.addEventListener('click', (event: Event) => {
               this.clickedOnPlot(event, x);
               x.setAttribute('title', x.id);
