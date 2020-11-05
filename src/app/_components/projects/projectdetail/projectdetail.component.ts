@@ -108,7 +108,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
           }
 
           const nfsclass = x.querySelector('.nfs');
-          const userrole = this.authService.userValue.role || this.role;
+          const userrole = this.authService.userValue?.role || this.role;
           if (userrole !== 'Agent' && nfsclass === null){
             x.addEventListener('click', (event: Event) => {
               this.clickedOnPlot(event, x);
