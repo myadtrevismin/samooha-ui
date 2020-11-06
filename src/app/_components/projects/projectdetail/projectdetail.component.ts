@@ -86,13 +86,14 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         const {width, height} = container.getBoundingClientRect();
         document.getElementById('container-img').innerHTML = this.svgHtml;
         const svg = document.getElementById('container-img').querySelector('svg');
-        const viewBox = '0 0 ' + (height) + ' ' + (width);
+        const viewBox =  '0 0' + ' '  + (svg.getBBox().width) + ' ' +
+        (container.clientHeight - svg.getBBox().height  / 2);
         const svgdoc = d3.select('svg')
         .attr('preserveAspectRatio', 'xMinYMin meet')
-        .attr('width', width)
+        .attr('width', container.clientWidth)
         .attr('viewBox', viewBox)
         .classed('svg-content-responsive', true)
-        .attr('height', height)
+        .attr('height', container.clientHeight)
         .call(d3.zoom().scaleExtent([1, 50])
         .on('zoom', ({transform}) => this.zoomed(transform)));
         svg.classList.add('svgfile');
