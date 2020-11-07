@@ -32,6 +32,7 @@ export class ProjectdialogComponent implements OnInit {
     this.subplotForm = this.formBuilder.group({
       customerName : [this.subProject.customerName, Validators.required],
       phone: [this.subProject.phone, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+      phone2: [this.subProject.phone2],
       address : [this.subProject.address, [Validators.required, Validators.maxLength(50), Validators.minLength(3)]],
       price: [this.subProject.price, [Validators.required, Validators.maxLength(9)]],
       updateDate: [this.subProject.purchaseDate, Validators.required],
@@ -60,10 +61,11 @@ export class ProjectdialogComponent implements OnInit {
     if (this.subplotForm.valid){
       const plot = {
         address: this.f.address.value,
-        agent: this.f.agent.value.split(':')[1].trim(),
+        agent: this.f.agent.value,
         currentStatus: 2,
         customerName: this.f.customerName.value,
         phone: this.f.phone.value,
+        phone2: this.f.phone2.value,
         plotSectionId: this.f.plotSectionId.value,
         price: this.f.price.value,
         updateDate: this.f.updateDate.value
@@ -74,6 +76,7 @@ export class ProjectdialogComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   changeAgent(event){
+    console.log(event.target.value);
     this.subplotForm.get('agent').setValue(event.target.value, {
       onlySelf: true
     });

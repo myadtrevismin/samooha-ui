@@ -68,8 +68,6 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line: typedef
   zoomed(transform){
     const g =  d3.select('g');
-    console.log(g);
-    console.log(transform);
     g.attr('transform', transform);
   }
 
@@ -87,7 +85,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         document.getElementById('container-img').innerHTML = this.svgHtml;
         const svg = document.getElementById('container-img').querySelector('svg');
         const viewBox =  '0 0' + ' '  + (svg.getBBox().width) + ' ' +
-        (container.clientHeight - svg.getBBox().height  / 2);
+        (svg.getBBox().height - container.clientHeight   / 2);
         const svgdoc = d3.select('svg')
         .attr('preserveAspectRatio', 'xMinYMin meet')
         .attr('width', container.clientWidth)

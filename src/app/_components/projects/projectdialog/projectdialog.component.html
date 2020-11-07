@@ -21,9 +21,14 @@
       </div>
     </div>
     <div class="form-group">
+      <mat-label>Additional Phone No:</mat-label>
+      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.phone2.errors }" matInput
+        formControlName="phone2">
+    </div>
+    <div class="form-group">
       <mat-label>Address</mat-label>
-      <input class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" matInput
-        formControlName="address">
+      <textarea class="form-control is-valid" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" matInput
+        formControlName="address"></textarea>
       <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
         <div *ngIf="f.address.errors.required">Address is required</div>
       </div>
@@ -62,9 +67,9 @@
 
     <div class="form-group">
       <mat-label>Agent</mat-label>
-      <select class="custom-select" (change)="changeAgent($event)" formControlName="agent">
+      <select class="custom-select"  formControlName="agent">
         <option value="" disabled>Select an Agent</option>
-        <option *ngFor="let agent of agents" [ngValue]="agent.id">{{agent.firstName}} {{agent.lastName}} -
+        <option *ngFor="let agent of agents" [value]="agent.id">{{agent.firstName}} {{agent.lastName}} -
           {{agent.accountCode}}</option>
       </select>
       <div *ngIf="submitted && f.agent.errors" class="invalid-feedback">
