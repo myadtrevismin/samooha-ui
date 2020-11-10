@@ -1,5 +1,10 @@
 <h1 mat-dialog-title>
-  {{data.plot.plotName}}
+  <div class="d-flex justify-content-between">
+    <div>{{data.plot.plotName}}</div>
+    <button mat-fab color="warn" title="Reset" (click)="reset()" aria-label="Restore icon">
+      <mat-icon>restore</mat-icon>
+    </button>
+  </div>
 </h1>
 <h5>Plot No: {{this.subProject.name}} - {{this.subProject.category1}} sqyards - {{this.status}} </h5>
 <div mat-dialog-content>

@@ -75,6 +75,23 @@ export class ProjectdialogComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
+  reset(){
+    this.submitted = true;
+    const plot = {
+        address: '',
+        agent: '',
+        currentStatus: 0,
+        customerName: '',
+        phone: '',
+        phone2: '',
+        plotSectionId: this.f.plotSectionId.value,
+        price: '',
+        updateDate: this.f.updateDate.value
+      };
+    this.dialogRef.close(plot);
+  }
+
+  // tslint:disable-next-line: typedef
   changeAgent(event){
     console.log(event.target.value);
     this.subplotForm.get('agent').setValue(event.target.value, {
