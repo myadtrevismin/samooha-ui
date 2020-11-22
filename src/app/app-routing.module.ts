@@ -19,6 +19,7 @@ import { RegisterviewComponent } from './_components/registerview/registerview.c
 import { ResetpasswordComponent } from './_components/resetpassword/resetpassword.component';
 import { VerifyemailComponent } from './_components/verifyemail/verifyemail.component';
 import { EditprojectComponent } from './_components/projects/editproject/editproject.component';
+import { TermsandconditionsComponent } from './_components/termsandconditions/termsandconditions.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: 'admins/create', component: AddadminComponent, canActivate: [AuthGuard] },
     ]
   },
+  { path: 'termsandconditions', component: TermsandconditionsComponent },
   { path: 'projects/:id', component: ProjectdetailComponent },
   { path: 'register', component: RegisterviewComponent },
   { path: 'verify-email', component: VerifyemailComponent },

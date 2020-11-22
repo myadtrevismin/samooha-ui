@@ -44,6 +44,7 @@ import { PhonevalidatePipe } from './_components/agents/addagent/phonevalidate.p
 import { EditprofileComponent } from './_components/agents/editprofile/editprofile.component';
 import { DatePipe } from '@angular/common';
 import { EditprojectComponent } from './_components/projects/editproject/editproject.component';
+import { TermsandconditionsComponent } from './_components/termsandconditions/termsandconditions.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { EditprojectComponent } from './_components/projects/editproject/editpro
     AdminsComponent,
     PhonevalidatePipe,
     EditprofileComponent,
-    EditprojectComponent
+    EditprojectComponent,
+    TermsandconditionsComponent
   ],
   imports: [
     BrowserModule,

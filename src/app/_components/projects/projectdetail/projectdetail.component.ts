@@ -10,6 +10,7 @@ import { ProjectdialogComponent } from '../projectdialog/projectdialog.component
 import { BlobService, UploadParams } from 'angular-azure-blob-service';
 import { environment } from 'src/environments/environment';
 import { AuthorizationService } from 'src/app/_services/authorize/authorization.service';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
   filePath;
   fileImg;
   role;
+  sections;
 
   ngOnInit(): void {
     this.role = this.route.snapshot.queryParams.role;
@@ -55,6 +57,7 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     .subscribe(x => {
       this.project = x;
       this.plotsCount = x.plotsCount;
+      this.sections = this.project.sections?.filter(a => a.currentStatus === 2);
       this.status = this.project.sections.filter(a => a.currentStatus === 2)?.length === x.plotsCount ? 'Closed' : 'Open';
       this.loadfile();
       this.showProgress = false;
@@ -215,5 +218,22 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
     link.href = href;
     link.click();
     link.remove();
+  }
+
+  downloadPlots(): void{
+   const mappedSections = this.sections.map(x => {
+      return {
+        'Plot Number': x.name,
+        'Customer Name': x.customerName,
+        'Customer Address ': x.address,
+        'Plot Price': x.price,
+        'Purchase Date': new Date(x.purchaseDate),
+        'Primary Phone': x.phone
+      };
+    });
+   const dataWs = XLSX.utils.json_to_sheet(mappedSections);
+   const wb = XLSX.utils.book_new();
+   XLSX.utils.book_append_sheet(wb, dataWs, 'Plot Details');
+   XLSX.writeFile(wb, this.project.plotName + '.xlsx');
   }
 }
