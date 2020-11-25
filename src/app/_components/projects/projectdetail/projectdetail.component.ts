@@ -228,7 +228,9 @@ export class ProjectdetailComponent implements OnInit, AfterViewInit {
         'Customer Address ': x.address,
         'Plot Price': x.price,
         'Purchase Date': new Date(x.purchaseDate),
-        'Primary Phone': x.phone
+        'Primary Phone': x.phone,
+        'Agent Code': x.agent.accountCode,
+        'Agent Name': x.agent.lastName + ' ' + x.agent.firstName
       };
     });
    const dataWs = XLSX.utils.json_to_sheet(mappedSections);
